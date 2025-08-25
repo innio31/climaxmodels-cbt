@@ -83,6 +83,21 @@
         color: var(--primary-color);
         border: 3px solid var(--secondary-color);
     }
+    .theory-grading-form {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #dee2e6;
+}
+
+.theory-answers .card {
+    border: 1px solid #dee2e6;
+}
+
+.theory-answers .card-header {
+    background-color: #f8f9fa;
+    font-size: 0.9rem;
+}
 </style>
     <!-- Add jsPDF library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -119,75 +134,6 @@
             </div>
         </div>
 
-        <div class="filter-container">
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <label class="form-label">Class</label>
-                    <select class="form-select" id="filterClass">
-                        <option value="">All Classes</option>
-                        <option value="jss1">JSS 1</option>
-                        <option value="jss2">JSS 2</option>
-                        <option value="jss3">JSS 3</option>
-                        <option value="sss1">SSS 1</option>
-                        <option value="sss2">SSS 2</option>
-                        <option value="sss3">SSS 3</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Subject</label>
-                    <select class="form-select" id="filterSubject">
-                        <option value="">All Subjects</option>
-                        <option value="mathematics">Mathematics</option>
-                        <option value="english">English</option>
-                        <option value="physics">Physics</option>
-                        <option value="chemistry">Chemistry</option>
-                        <option value="biology">Biology</option>
-                        <option value="yoruba">Yoruba</option>
-                        <option value="economics">Economics</option>
-                        <option value="computer">Computer</option>
-                        <option value="civic">Civic Education</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="agric">Aricultural Science</option>
-                        <option value="lit">Literature-in-English</option>
-                        <option value="crs">Christian Religious Studies</option>
-                        <option value="irs">Islamic Religios Studies</option>
-                        <option value="history">History</option>
-                        <option value="commere">Commerce</option>
-                        <option value="account">Financial Accounting</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Exam Type</label>
-                    <select class="form-select" id="filterExamType">
-                        <option value="">All Types</option>
-                        <option value="ca">Continuous Assessment</option>
-                        <option value="midterm">Midterm Exam</option>
-                        <option value="exam">End of Term Exam</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Term</label>
-                    <select class="form-select" id="filterTerm">
-                        <option value="">All Terms</option>
-                        <option value="1st">1st Term</option>
-                        <option value="2nd">2nd Term</option>
-                        <option value="3rd">3rd Term</option>
-                        <option value="summer">Summer</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <div class="d-flex justify-content-end gap-2">
-                        <button id="applyFilters" class="btn btn-primary">
-                            <i class="fas fa-filter me-2"></i>Apply Filters
-                        </button>
-                        <button id="resetFilters" class="btn btn-outline-secondary">
-                            <i class="fas fa-undo me-2"></i>Reset
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-     
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
@@ -250,7 +196,8 @@
                 </div>
             </div>
         </div>
-                                
+        
+                                 
         <!-- Term Report Generation -->
         <div class="row mt-4">
             <div class="col-12">
@@ -345,6 +292,75 @@
             </div>
         </div>
 
+        <div class="filter-container">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Class</label>
+                    <select class="form-select" id="filterClass">
+                        <option value="">All Classes</option>
+                        <option value="jss1">JSS 1</option>
+                        <option value="jss2">JSS 2</option>
+                        <option value="jss3">JSS 3</option>
+                        <option value="sss1">SSS 1</option>
+                        <option value="sss2">SSS 2</option>
+                        <option value="sss3">SSS 3</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Subject</label>
+                    <select class="form-select" id="filterSubject">
+                        <option value="">All Subjects</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="english">English</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                        <option value="yoruba">Yoruba</option>
+                        <option value="economics">Economics</option>
+                        <option value="computer">Computer</option>
+                        <option value="civic">Civic Education</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="agric">Aricultural Science</option>
+                        <option value="lit">Literature-in-English</option>
+                        <option value="crs">Christian Religious Studies</option>
+                        <option value="irs">Islamic Religios Studies</option>
+                        <option value="history">History</option>
+                        <option value="commere">Commerce</option>
+                        <option value="account">Financial Accounting</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Exam Type</label>
+                    <select class="form-select" id="filterExamType">
+                        <option value="">All Types</option>
+                        <option value="ca">Continuous Assessment</option>
+                        <option value="midterm">Midterm Exam</option>
+                        <option value="exam">End of Term Exam</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Term</label>
+                    <select class="form-select" id="filterTerm">
+                        <option value="">All Terms</option>
+                        <option value="1st">1st Term</option>
+                        <option value="2nd">2nd Term</option>
+                        <option value="3rd">3rd Term</option>
+                        <option value="summer">Summer</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button id="applyFilters" class="btn btn-primary">
+                            <i class="fas fa-filter me-2"></i>Apply Filters
+                        </button>
+                        <button id="resetFilters" class="btn btn-outline-secondary">
+                            <i class="fas fa-undo me-2"></i>Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -385,6 +401,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Replace the entire result modal with this updated version -->
+<div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Exam Result Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="resultDetails">
+                <!-- Details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="printResult">Print Result</button>
+                <!-- We'll remove the saveTheoryScore button from here since it's now in the modal body -->
+            </div>
+        </div>
+    </div>
+</div>
 
             <div class="col-md-4">
                 <div class="card">
@@ -502,54 +538,9 @@ const saveExamSettingsBtn = document.getElementById('saveExamSettings');
 const previewReportBtn = document.getElementById('previewReport');
 const generatePdfBtn = document.getElementById('generatePdf');
 
-               // ==================== THEORY SCORE MANAGEMENT ====================
+    // ==================== THEORY SCORE MANAGEMENT ====================
 
-// Add event listener for the Save Theory Score button
-document.getElementById('saveTheoryScore').addEventListener('click', saveTheoryScore);
-
-// Function to save theory score
-function saveTheoryScore() {
-    // Get the current result being viewed
-    const modal = document.getElementById('resultModal');
-    const resultId = modal.dataset.currentResultId;
-    
-    if (!resultId) {
-        showAlert('danger', 'No result selected for theory score update');
-        return;
-    }
-    
-    // Prompt for theory score
-    const theoryScore = prompt('Enter theory score (0-100):');
-    
-    if (theoryScore === null) return; // User cancelled
-    
-    // Validate input
-    const score = parseInt(theoryScore);
-    if (isNaN(score) || score < 0 || score > 100) {
-        showAlert('danger', 'Please enter a valid score between 0 and 100');
-        return;
-    }
-    
-    // Update the result in Firebase
-    const resultRef = database.ref('examResults/' + resultId);
-    
-    resultRef.update({
-        theoryScore: score,
-        theoryGraded: true,
-        theoryGradedAt: new Date().toISOString()
-    })
-    .then(() => {
-        showAlert('success', 'Theory score saved successfully!');
-        // Close the modal
-        bootstrap.Modal.getInstance(modal).hide();
-    })
-    .catch(error => {
-        console.error('Error saving theory score:', error);
-        showAlert('danger', 'Failed to save theory score.');
-    });
-}
-
-// Update the viewResultDetails function to store the current result ID
+// Function to view result details with theory scoring
 function viewResultDetails(resultId) {
     const result = allResults.find(r => r.id === resultId);
     if (!result) return;
@@ -557,16 +548,17 @@ function viewResultDetails(resultId) {
     const modal = new bootstrap.Modal(document.getElementById('resultModal'));
     const detailsContainer = document.getElementById('resultDetails');
     
-    // Store the current result ID in the modal element
+    // Store the current result ID in the modal for later reference
     document.getElementById('resultModal').dataset.currentResultId = resultId;
     
-    // Format the details HTML (existing code remains the same)
+    // Format the details HTML
     detailsContainer.innerHTML = `
         <div class="row mb-4">
             <div class="col-md-6">
                 <h5>Student Information</h5>
                 <p><strong>Name:</strong> ${result.name || 'N/A'}</p>
                 <p><strong>Class:</strong> ${result.class ? result.class.toUpperCase() : 'N/A'}</p>
+                <p><strong>Student ID:</strong> ${result.studentId || 'N/A'}</p>
             </div>
             <div class="col-md-6">
                 <h5>Exam Information</h5>
@@ -600,10 +592,25 @@ function viewResultDetails(resultId) {
                             <h3 class="${getScoreClass(result.theoryScore)}">
                                 ${result.theoryScore}%
                             </h3>
-                            <p class="card-text">Graded by teacher</p>
+                            <p class="card-text">Graded by: ${result.theoryGradedBy || 'Teacher'}</p>
+                            <p class="card-text">Graded on: ${formatDate(result.theoryGradedAt)}</p>
                         ` : result.theorySubmitted ? `
-                            <p class="card-text">Submitted for grading (not graded yet)</p>
-                            <button class="btn btn-sm btn-primary" id="gradeTheoryBtn">Grade Now</button>
+                            <div class="theory-grading-form">
+                                <h5>Grade Theory Section</h5>
+                                <div class="mb-3">
+                                    <label for="theoryScoreInput" class="form-label">Theory Score (0-100)</label>
+                                    <input type="number" class="form-control" id="theoryScoreInput" min="0" max="100" placeholder="Enter score">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="theoryGraderName" class="form-label">Grader Name</label>
+                                    <input type="text" class="form-control" id="theoryGraderName" placeholder="Your name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="theoryComments" class="form-label">Comments (Optional)</label>
+                                    <textarea class="form-control" id="theoryComments" rows="2" placeholder="Any comments about this theory submission"></textarea>
+                                </div>
+                                <button class="btn btn-success" id="saveTheoryScore">Save Theory Score</button>
+                            </div>
                         ` : `
                             <p class="card-text">Not submitted</p>
                         `}
@@ -615,37 +622,119 @@ function viewResultDetails(resultId) {
         ${result.answers ? `
         <div class="mt-4">
             <h5>Objective Answers</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Question</th>
-                        <th>Selected Answer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${result.answers.map((answer, index) => `
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead>
                         <tr>
-                            <td>Question ${index + 1}</td>
-                            <td>${answer !== null ? `Option ${String.fromCharCode(65 + answer)}` : 'Not answered'}</td>
+                            <th>Question</th>
+                            <th>Selected Answer</th>
+                            <th>Correct</th>
                         </tr>
-                    `).join('')}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        ${result.answers.map((answer, index) => `
+                            <tr>
+                                <td>Question ${index + 1}</td>
+                                <td>${answer !== null ? `Option ${String.fromCharCode(65 + answer)}` : 'Not answered'}</td>
+                                <td>${result.correctAnswers && result.correctAnswers[index] !== undefined ? 
+                                    (answer === result.correctAnswers[index] ? 
+                                        '<span class="text-success"><i class="fas fa-check"></i></span>' : 
+                                        '<span class="text-danger"><i class="fas fa-times"></i></span>') : 
+                                    'N/A'}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        ` : ''}
+        
+        ${result.theoryAnswers ? `
+        <div class="mt-4">
+            <h5>Theory Answers</h5>
+            <div class="theory-answers">
+                ${result.theoryAnswers.map((answer, index) => `
+                    <div class="card mb-2">
+                        <div class="card-header py-1">
+                            <strong>Question ${index + 1}</strong>
+                        </div>
+                        <div class="card-body py-2">
+                            <p class="mb-0">${answer || 'No answer provided'}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
         </div>
         ` : ''}
     `;
     
-    // Add event listener for the Grade Now button if it exists
+    // Add event listener for the Save Theory Score button if it exists
     setTimeout(() => {
-        const gradeBtn = document.getElementById('gradeTheoryBtn');
-        if (gradeBtn) {
-            gradeBtn.addEventListener('click', () => {
-                saveTheoryScore();
-            });
+        const saveBtn = document.getElementById('saveTheoryScore');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', saveTheoryScore);
         }
     }, 100);
     
     modal.show();
+}
+
+// Function to save theory score
+function saveTheoryScore() {
+    const modal = document.getElementById('resultModal');
+    const resultId = modal.dataset.currentResultId;
+    
+    if (!resultId) {
+        showAlert('danger', 'No result selected for theory score update');
+        return;
+    }
+    
+    // Get input values
+    const theoryScoreInput = document.getElementById('theoryScoreInput');
+    const graderNameInput = document.getElementById('theoryGraderName');
+    const commentsInput = document.getElementById('theoryComments');
+    
+    const theoryScore = parseInt(theoryScoreInput.value);
+    const graderName = graderNameInput.value.trim();
+    const comments = commentsInput.value.trim();
+    
+    // Validate inputs
+    if (isNaN(theoryScore) || theoryScore < 0 || theoryScore > 100) {
+        showAlert('danger', 'Please enter a valid theory score between 0 and 100');
+        return;
+    }
+    
+    if (!graderName) {
+        showAlert('danger', 'Please enter your name as the grader');
+        return;
+    }
+    
+    // Update the result in Firebase
+    const resultRef = database.ref('examResults/' + resultId);
+    const updates = {
+        theoryScore: theoryScore,
+        theoryGraded: true,
+        theoryGradedBy: graderName,
+        theoryGradedAt: new Date().toISOString()
+    };
+    
+    // Add comments if provided
+    if (comments) {
+        updates.theoryComments = comments;
+    }
+    
+    resultRef.update(updates)
+    .then(() => {
+        showAlert('success', 'Theory score saved successfully!');
+        // Close the modal and reload results
+        bootstrap.Modal.getInstance(modal).hide();
+        loadResults();
+    })
+    .catch(error => {
+        console.error('Error saving theory score:', error);
+        showAlert('danger', 'Failed to save theory score.');
+    });
 }
 
 
@@ -715,6 +804,30 @@ function updateResultsTable(page = 1) {
     const startIndex = (page - 1) * resultsPerPage;
     const endIndex = startIndex + resultsPerPage;
     const paginatedResults = filteredResults.slice(startIndex, endIndex);
+    // In the updateResultsTable function, modify the row HTML to include:
+row.innerHTML = `
+    <td>${result.name || 'N/A'}</td>
+    <td>${result.class ? result.class.toUpperCase() : 'N/A'}</td>
+    <td>${result.subject ? capitalizeFirstLetter(result.subject) : 'N/A'}</td>
+    <td>${getExamTypeDisplay(result.examType)}</td>
+    <td>${result.term ? `${result.term} Term` : ''} ${result.session || ''}</td>
+    <td class="${scoreClass}">
+        ${result.objectiveScore || result.objectiveScore === 0 ? result.objectiveScore + '%' : 'N/A'}
+    </td>
+    <td>
+        ${result.theoryGraded ? 
+            `<span class="badge bg-success">Graded: ${result.theoryScore}%</span>` : 
+            result.theorySubmitted ? 
+            `<span class="badge bg-warning text-dark">Pending</span>` : 
+            `<span class="badge bg-secondary">Not Submitted</span>`}
+    </td>
+    <td>${submittedDate}</td>
+    <td>
+        <button class="btn btn-sm btn-outline-primary view-details" data-id="${result.id}">
+            <i class="fas fa-eye"></i>
+        </button>
+    </td>
+`;
     
     // Clear existing rows
     resultsTable.innerHTML = '';
@@ -1716,6 +1829,7 @@ function calculateGrade(score) {
     </script>
 </body>
 </html>
+
 
 
 
