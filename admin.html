@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Results Admin - Climax Brains Academy</title>
+    <title>Exam Results Admin - The Climax Model Schools, Ota</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -63,6 +63,26 @@
     .nav-tabs .nav-link {
         color: var(--primary-color);
     }
+    .school-header {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #0d47a1 100%);
+        color: white;
+        padding: 15px 0;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .school-logo {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-weight: bold;
+        color: var(--primary-color);
+        border: 3px solid var(--secondary-color);
+    }
 </style>
     <!-- Add jsPDF library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -70,13 +90,30 @@
 </head>
 <body>
     <div class="container-fluid py-4">
+        <!-- School Header -->
+        <div class="school-header">
+            <div class="row align-items-center">
+                <div class="col-md-8 d-flex align-items-center">
+                    <div class="school-logo">
+                        <span>TCMS</span>
+                    </div>
+                    <div>
+                        <h1 class="mb-0">The Climax Model Schools, Ota</h1>
+                        <p class="mb-0">Excellence in Education Since 1995</p>
+                    </div>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button id="exportBtn" class="btn btn-light">
+                        <i class="fas fa-file-export me-2"></i>Export to Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h1><i class="fas fa-graduation-cap me-2"></i> Exam Results Dashboard</h1>
-                    <button id="exportBtn" class="btn btn-success">
-                        <i class="fas fa-file-export me-2"></i>Export to Excel
-                    </button>
+                    <h2><i class="fas fa-graduation-cap me-2"></i> Exam Results Dashboard</h2>
                 </div>
                 <p class="text-muted">View and analyze student exam results</p>
             </div>
@@ -138,155 +175,155 @@
             </div>
         </div>
      
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-cog me-2"></i>Exam Portal Management
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" type="checkbox" id="toggleExamPortal" style="width: 3em; height: 1.5em;">
-                            <label class="form-check-label" for="toggleExamPortal">
-                                <h5>Exam Portal Status</h5>
-                                <p class="text-muted">Toggle to open/close the exam portal for students</p>
-                            </label>
-                        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-cog me-2"></i>Exam Portal Management
                     </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label">Available Exam Types</label>
-                            <div class="form-check">
-                                <input class="form-check-input exam-type-check" type="checkbox" value="ca" id="examTypeCA">
-                                <label class="form-check-label" for="examTypeCA">
-                                    Continuous Assessment (CA)
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input exam-type-check" type="checkbox" value="midterm" id="examTypeMidterm">
-                                <label class="form-check-label" for="examTypeMidterm">
-                                    Midterm Exam
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input exam-type-check" type="checkbox" value="exam" id="examTypeFinal">
-                                <label class="form-check-label" for="examTypeFinal">
-                                    End of Term Exam
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="examStartDate" class="form-label">Start Date</label>
-                            <input type="datetime-local" class="form-control" id="examStartDate">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="examEndDate" class="form-label">End Date</label>
-                            <input type="datetime-local" class="form-control" id="examEndDate">
-                        </div>
-                    </div>
-                </div>
-                <button id="saveExamSettings" class="btn btn-primary">
-                    <i class="fas fa-save me-2"></i>Save Settings
-                </button>
-            </div>
-        </div>
-    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="toggleExamPortal" style="width: 3em; height: 1.5em;">
+                                    <label class="form-check-label" for="toggleExamPortal">
+                                        <h5>Exam Portal Status</h5>
+                                        <p class="text-muted">Toggle to open/close the exam portal for students</p>
+                                    </label>
                                 </div>
-                                
-                                <!-- Add this right after the Exam Portal Management card -->
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-file-alt me-2"></i>Term Report Generation
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Available Exam Types</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input exam-type-check" type="checkbox" value="ca" id="examTypeCA">
+                                        <label class="form-check-label" for="examTypeCA">
+                                            Continuous Assessment (CA)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input exam-type-check" type="checkbox" value="midterm" id="examTypeMidterm">
+                                        <label class="form-check-label" for="examTypeMidterm">
+                                            Midterm Exam
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input exam-type-check" type="checkbox" value="exam" id="examTypeFinal">
+                                        <label class="form-check-label" for="examTypeFinal">
+                                            End of Term Exam
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="examStartDate" class="form-label">Start Date</label>
+                                    <input type="datetime-local" class="form-control" id="examStartDate">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="examEndDate" class="form-label">End Date</label>
+                                    <input type="datetime-local" class="form-control" id="examEndDate">
+                                </div>
+                            </div>
+                        </div>
+                        <button id="saveExamSettings" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Save Settings
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Class</label>
-                            <select class="form-select" id="reportClass">
-                                <option value="">Select Class</option>
-                                <option value="jss1">JSS 1</option>
-                                <option value="jss2">JSS 2</option>
-                                <option value="jss3">JSS 3</option>
-                                <option value="sss1">SSS 1</option>
-                                <option value="sss2">SSS 2</option>
-                                <option value="sss3">SSS 3</option>
-                            </select>
-                        </div>
+        </div>
+                                
+        <!-- Term Report Generation -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-file-alt me-2"></i>Term Report Generation
                     </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Term</label>
-                            <select class="form-select" id="reportTerm">
-                                <option value="">Select Term</option>
-                                <option value="1st">1st Term</option>
-                                <option value="2nd">2nd Term</option>
-                                <option value="3rd">3rd Term</option>
-                            </select>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Class</label>
+                                    <select class="form-select" id="reportClass">
+                                        <option value="">Select Class</option>
+                                        <option value="jss1">JSS 1</option>
+                                        <option value="jss2">JSS 2</option>
+                                        <option value="jss3">JSS 3</option>
+                                        <option value="sss1">SSS 1</option>
+                                        <option value="sss2">SSS 2</option>
+                                        <option value="sss3">SSS 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Term</label>
+                                    <select class="form-select" id="reportTerm">
+                                        <option value="">Select Term</option>
+                                        <option value="1st">1st Term</option>
+                                        <option value="2nd">2nd Term</option>
+                                        <option value="3rd">3rd Term</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Session</label>
+                                    <input type="text" class="form-control" id="reportSession" placeholder="e.g. 2023/2024">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Session</label>
-                            <input type="text" class="form-control" id="reportSession" placeholder="e.g. 2023/2024">
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="caWeight" class="form-label">CA Weight (%)</label>
+                                    <input type="number" class="form-control" id="caWeight" value="10" min="0" max="100">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="midtermWeight" class="form-label">Midterm Weight (%)</label>
+                                    <input type="number" class="form-control" id="midtermWeight" value="20" min="0" max="100">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="examWeight" class="form-label">Exam Weight (%)</label>
+                                    <input type="number" class="form-control" id="examWeight" value="70" min="0" max="100">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="caWeight" class="form-label">CA Weight (%)</label>
-                            <input type="number" class="form-control" id="caWeight" value="10" min="0" max="100">
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <button id="previewReport" class="btn btn-primary">
+                                <i class="fas fa-eye me-2"></i>Preview Report
+                            </button>
+                            <button id="generatePdf" class="btn btn-success">
+                                <i class="fas fa-file-pdf me-2"></i>Generate PDF
+                            </button>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="midtermWeight" class="form-label">Midterm Weight (%)</label>
-                            <input type="number" class="form-control" id="midtermWeight" value="20" min="0" max="100">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="examWeight" class="form-label">Exam Weight (%)</label>
-                            <input type="number" class="form-control" id="examWeight" value="70" min="0" max="100">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="d-flex justify-content-between mt-4">
-                    <button id="previewReport" class="btn btn-primary">
-                        <i class="fas fa-eye me-2"></i>Preview Report
-                    </button>
-                    <button id="generatePdf" class="btn btn-success">
-                        <i class="fas fa-file-pdf me-2"></i>Generate PDF
-                    </button>
-                </div>
-                
-                <div id="reportPreview" class="mt-4 d-none">
-                    <div class="card">
-                        <div class="card-header">
-                            Report Preview
-                        </div>
-                        <div class="card-body" id="previewContent">
-                            <!-- Preview content will be loaded here -->
+                        
+                        <div id="reportPreview" class="mt-4 d-none">
+                            <div class="card">
+                                <div class="card-header">
+                                    Report Preview
+                                </div>
+                                <div class="card-body" id="previewContent">
+                                    <!-- Preview content will be loaded here -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
         <div class="row">
             <div class="col-md-8">
@@ -364,25 +401,25 @@
         </div>
     </div>
 
-    <!-- In the result details modal (around line 1000) -->
-<div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Exam Result Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="resultDetails">
-                <!-- Details will be loaded here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="printResult">Print Result</button>
-                <button type="button" class="btn btn-success" id="saveTheoryScore">Save Theory Score</button>
+    <!-- Result Details Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Exam Result Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="resultDetails">
+                    <!-- Details will be loaded here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="printResult">Print Result</button>
+                    <button type="button" class="btn btn-success" id="saveTheoryScore">Save Theory Score</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Firebase and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -390,6 +427,16 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
+        // ===== Password Protection =====
+const PASSWORD = "climaxmodels"; // change as needed
+(function() {
+    let entered = prompt("Enter Password:");
+    if (entered !== PASSWORD) {
+        alert("Access Denied");
+        window.location.reload();
+    }
+})();
+        
 // Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCLARJE_z6pdpEoMMt2f9JcSvZAmxOwwMM",
@@ -1498,3 +1545,4 @@ function calculateGrade(score) {
     </script>
 </body>
 </html>
+
