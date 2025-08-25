@@ -8,557 +8,219 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <!-- Add jsPDF library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 <style>
     :root {
-        --primary-color: #1a5fb4;  /* Blue */
-        --secondary-color: #f6d32d;  /* Yellow */
-        --accent-color: #1a5fb4;  /* Blue */
-        --cms-primary: #1a5fb4;  /* CMS Blue */
-        --cms-secondary: #e63946;  /* CMS Red */
-        --cms-accent: #f1faee;  /* CMS Light */
-        --cms-dark: #1d3557;  /* CMS Dark Blue */
-        --cms-light: #a8dadc;  /* CMS Light Blue */
+        --primary-color: #00695c;  /* Teal for Model Schools */
+        --secondary-color: #ffca28;  /* Amber */
+        --accent-color: #00695c;
     }
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f8f9fa;
-    }
-    .navbar-cms {
-        background-color: var(--cms-primary);
-    }
-    .sidebar {
-        background-color: var(--cms-dark);
-        color: white;
-        min-height: calc(100vh - 73px);
-    }
-    .sidebar .nav-link {
-        color: rgba(255, 255, 255, 0.8);
-        padding: 0.75rem 1rem;
-    }
-    .sidebar .nav-link:hover, .sidebar .nav-link.active {
-        color: white;
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-    .sidebar .nav-link i {
-        margin-right: 10px;
-        width: 20px;
-        text-align: center;
+        background-color: #f4f6f9;
     }
     .card {
-        border-radius: 8px;
+        border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin-bottom: 20px;
         border: none;
     }
     .card-header {
-        background-color: var(--cms-primary);
+        background-color: var(--primary-color);
         color: white;
         font-weight: 600;
-        border-radius: 8px 8px 0 0 !important;
     }
     .badge-primary {
-        background-color: var(--cms-primary);
+        background-color: var(--primary-color);
     }
     .badge-secondary {
-        background-color: var(--cms-secondary);
+        background-color: var(--secondary-color);
+        color: #333;
     }
     .filter-container {
         background-color: white;
-        border-radius: 8px;
+        border-radius: 10px;
         padding: 15px;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        border-left: 4px solid var(--cms-primary);
     }
-    .high-score {
-        color: #28a745;
-        font-weight: 600;
-    }
-    .medium-score {
-        color: #ffc107;
-        font-weight: 600;
-    }
-    .low-score {
-        color: #dc3545;
-        font-weight: 600;
-    }
+    .high-score { color: #28a745; font-weight: 600; }
+    .medium-score { color: #ffc107; font-weight: 600; }
+    .low-score { color: #dc3545; font-weight: 600; }
     .nav-tabs .nav-link.active {
-        background-color: var(--cms-primary);
-        color: white;
-        border-color: var(--cms-primary);
-    }
-    .nav-tabs .nav-link {
-        color: var(--cms-primary);
-    }
-    .btn-primary {
-        background-color: var(--cms-primary);
-        border-color: var(--cms-primary);
-    }
-    .btn-primary:hover {
-        background-color: #0d4a8f;
-        border-color: #0d4a8f;
-    }
-    .btn-outline-primary {
-        color: var(--cms-primary);
-        border-color: var(--cms-primary);
-    }
-    .btn-outline-primary:hover {
-        background-color: var(--cms-primary);
+        background-color: var(--primary-color);
         color: white;
     }
-    .cms-header {
-        background-color: var(--cms-dark);
-        color: white;
-        padding: 15px 0;
-        margin-bottom: 20px;
-    }
-    .cms-logo {
-        height: 60px;
-        margin-right: 15px;
-    }
-    .stats-card {
-        border-left: 4px solid var(--cms-primary);
-    }
-    .stats-card .card-body {
-        padding: 1rem;
-    }
-    .stats-number {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: var(--cms-primary);
-    }
+    .nav-tabs .nav-link { color: var(--primary-color); }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <div class="cms-header">
-        <div class="container-fluid">
-            <div class="d-flex align-items-center">
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWQzNTU3IiAvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkeT0iLjM1ZW0iIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZmYiPkNNUzwvdGV4dD48L3N2Zz4=" alt="Climax Model Schools Logo" class="cms-logo">
-                <div>
-                    <h2 class="mb-0">Climax Model Schools</h2>
-                    <p class="mb-0">Academic Excellence Portal</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar d-md-block">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                <i class="fas fa-tachometer-alt"></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-users"></i>
-                                Students
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-book"></i>
-                                Subjects
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-clipboard-list"></i>
-                                Exams
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-chart-bar"></i>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-cog"></i>
-                                Settings
-                            </a>
-                        </li>
-                        <li class="nav-item mt-4">
-                            <a class="nav-link" href="#">
-                                <i class="fas fa-sign-out-alt"></i>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Main content -->
-            <div class="col-md-9 col-lg-10 ml-sm-auto px-4 py-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2><i class="fas fa-graduation-cap me-2"></i> Exam Results Dashboard</h2>
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1><i class="fas fa-graduation-cap me-2"></i> Exam Results Dashboard</h1>
                     <button id="exportBtn" class="btn btn-success">
                         <i class="fas fa-file-export me-2"></i>Export to Excel
                     </button>
                 </div>
+                <p class="text-muted">View and analyze student exam results</p>
+            </div>
+        </div>
 
-                <!-- Stats Cards -->
-                <div class="row mb-4">
-                    <div class="col-md-3">
-                        <div class="card stats-card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="card-title text-muted">TOTAL RESULTS</h6>
-                                        <div class="stats-number" id="totalResultsCard">0</div>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="fas fa-file-alt fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card stats-card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="card-title text-muted">AVERAGE SCORE</h6>
-                                        <div class="stats-number" id="averageScoreCard">0%</div>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="fas fa-chart-line fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card stats-card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="card-title text-muted">TOP PERFORMER</h6>
-                                        <div class="stats-number" id="topPerformerCard">-</div>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="fas fa-trophy fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card stats-card">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h6 class="card-title text-muted">PASS RATE</h6>
-                                        <div class="stats-number" id="passRateCard">0%</div>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="fas fa-check-circle fa-2x text-primary"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Filter Container -->
+        <div class="filter-container">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Class</label>
+                    <select class="form-select" id="filterClass">
+                        <option value="">All Classes</option>
+                        <option value="jss1">JSS 1</option>
+                        <option value="jss2">JSS 2</option>
+                        <option value="jss3">JSS 3</option>
+                        <option value="sss1">SSS 1</option>
+                        <option value="sss2">SSS 2</option>
+                        <option value="sss3">SSS 3</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Subject</label>
+                    <select class="form-select" id="filterSubject">
+                        <option value="">All Subjects</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="english">English</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Exam Type</label>
+                    <select class="form-select" id="filterExamType">
+                        <option value="">All Types</option>
+                        <option value="ca">Continuous Assessment</option>
+                        <option value="midterm">Midterm Exam</option>
+                        <option value="exam">End of Term Exam</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Term</label>
+                    <select class="form-select" id="filterTerm">
+                        <option value="">All Terms</option>
+                        <option value="1st">1st Term</option>
+                        <option value="2nd">2nd Term</option>
+                        <option value="3rd">3rd Term</option>
+                        <option value="summer">Summer Term</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button id="applyFilters" class="btn btn-primary">
+                            <i class="fas fa-filter me-2"></i>Apply Filters
+                        </button>
+                        <button id="resetFilters" class="btn btn-outline-secondary">
+                            <i class="fas fa-undo me-2"></i>Reset
+                        </button>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="filter-container">
-                    <h5 class="mb-3"><i class="fas fa-filter me-2"></i>Filter Results</h5>
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Class</label>
-                            <select class="form-select" id="filterClass">
-                                <option value="">All Classes</option>
-                                <option value="jss1">JSS 1</option>
-                                <option value="jss2">JSS 2</option>
-                                <option value="jss3">JSS 3</option>
-                                <option value="sss1">SSS 1</option>
-                                <option value="sss2">SSS 2</option>
-                                <option value="sss3">SSS 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Subject</label>
-                            <select class="form-select" id="filterSubject">
-                                <option value="">All Subjects</option>
-                                <option value="mathematics">Mathematics</option>
-                                <option value="english">English</option>
-                                <option value="physics">Physics</option>
-                                <option value="chemistry">Chemistry</option>
-                                <option value="biology">Biology</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Exam Type</label>
-                            <select class="form-select" id="filterExamType">
-                                <option value="">All Types</option>
-                                <option value="ca">Continuous Assessment</option>
-                                <option value="midterm">Midterm Exam</option>
-                                <option value="exam">End of Term Exam</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Term</label>
-                            <select class="form-select" id="filterTerm">
-                                <option value="">All Terms</option>
-                                <option value="1st">1st Term</option>
-                                <option value="2nd">2nd Term</option>
-                                <option value="3rd">3rd Term</option>
-                            </select>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex justify-content-end gap-2">
-                                <button id="applyFilters" class="btn btn-primary">
-                                    <i class="fas fa-filter me-2"></i>Apply Filters
-                                </button>
-                                <button id="resetFilters" class="btn btn-outline-secondary">
-                                    <i class="fas fa-undo me-2"></i>Reset
-                                </button>
+        <!-- Term Report -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-file-alt me-2"></i>Term Report Generation</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Class</label>
+                                <select class="form-select" id="reportClass">
+                                    <option value="">Select Class</option>
+                                    <option value="jss1">JSS 1</option>
+                                    <option value="jss2">JSS 2</option>
+                                    <option value="jss3">JSS 3</option>
+                                    <option value="sss1">SSS 1</option>
+                                    <option value="sss2">SSS 2</option>
+                                    <option value="sss3">SSS 3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Term</label>
+                                <select class="form-select" id="reportTerm">
+                                    <option value="">Select Term</option>
+                                    <option value="1st">1st Term</option>
+                                    <option value="2nd">2nd Term</option>
+                                    <option value="3rd">3rd Term</option>
+                                    <option value="summer">Summer</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Session</label>
+                                <select class="form-select" id="reportSession">
+                                    <option value="">Select Session</option>
+                                    <option value="2023/2024">2024/2025</option>
+                                    <option value="2024/2025">2025/2026</option>
+                                    <option value="2025/2026">2026/2027</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Exam Portal Management -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fas fa-cog me-2"></i>Exam Portal Management
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" type="checkbox" id="toggleExamPortal" style="width: 3em; height: 1.5em;">
-                                            <label class="form-check-label" for="toggleExamPortal">
-                                                <h5>Exam Portal Status</h5>
-                                                <p class="text-muted">Toggle to open/close the exam portal for students</p>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Available Exam Types</label>
-                                            <div class="form-check">
-                                                <input class="form-check-input exam-type-check" type="checkbox" value="ca" id="examTypeCA">
-                                                <label class="form-check-label" for="examTypeCA">
-                                                    Continuous Assessment (CA)
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input exam-type-check" type="checkbox" value="midterm" id="examTypeMidterm">
-                                                <label class="form-check-label" for="examTypeMidterm">
-                                                    Midterm Exam
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input exam-type-check" type="checkbox" value="exam" id="examTypeFinal">
-                                                <label class="form-check-label" for="examTypeFinal">
-                                                    End of Term Exam
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="examStartDate" class="form-label">Start Date</label>
-                                            <input type="datetime-local" class="form-control" id="examStartDate">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label for="examEndDate" class="form-label">End Date</label>
-                                            <input type="datetime-local" class="form-control" id="examEndDate">
-                                        </div>
-                                    </div>
-                                </div>
-                                <button id="saveExamSettings" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>Save Settings
-                                </button>
-                            </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button id="previewReport" class="btn btn-primary"><i class="fas fa-eye me-2"></i>Preview Report</button>
+                            <button id="generatePdf" class="btn btn-success"><i class="fas fa-file-pdf me-2"></i>Generate PDF</button>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Term Report Generation -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fas fa-file-alt me-2"></i>Term Report Generation
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label class="form-label">Class</label>
-                                            <select class="form-select" id="reportClass">
-                                                <option value="">Select Class</option>
-                                                <option value="jss1">JSS 1</option>
-                                                <option value="jss2">JSS 2</option>
-                                                <option value="jss3">JSS 3</option>
-                                                <option value="sss1">SSS 1</option>
-                                                <option value="sss2">SSS 2</option>
-                                                <option value="sss3">SSS 3</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label class="form-label">Term</label>
-                                            <select class="form-select" id="reportTerm">
-                                                <option value="">Select Term</option>
-                                                <option value="1st">1st Term</option>
-                                                <option value="2nd">2nd Term</option>
-                                                <option value="3rd">3rd Term</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label class="form-label">Session</label>
-                                            <input type="text" class="form-control" id="reportSession" placeholder="e.g. 2023/2024">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="row mt-3">
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="caWeight" class="form-label">CA Weight (%)</label>
-                                            <input type="number" class="form-control" id="caWeight" value="10" min="0" max="100">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="midtermWeight" class="form-label">Midterm Weight (%)</label>
-                                            <input type="number" class="form-control" id="midtermWeight" value="20" min="0" max="100">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="examWeight" class="form-label">Exam Weight (%)</label>
-                                            <input type="number" class="form-control" id="examWeight" value="70" min="0" max="100">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="d-flex justify-content-between mt-4">
-                                    <button id="previewReport" class="btn btn-primary">
-                                        <i class="fas fa-eye me-2"></i>Preview Report
-                                    </button>
-                                    <button id="generatePdf" class="btn btn-success">
-                                        <i class="fas fa-file-pdf me-2"></i>Generate PDF
-                                    </button>
-                                </div>
-                                
-                                <div id="reportPreview" class="mt-4 d-none">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            Report Preview
-                                        </div>
-                                        <div class="card-body" id="previewContent">
-                                            <!-- Preview content will be loaded here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Results and Charts -->
-                <div class="row mt-4">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <span>Exam Results</span>
-                                <div>
-                                    <span class="badge bg-secondary me-2">Total: <span id="totalResults">0</span></span>
-                                    <span class="badge bg-primary">Avg Score: <span id="averageScore">0</span>%</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Student</th>
-                                                <th>Class</th>
-                                                <th>Subject</th>
-                                                <th>Exam Type</th>
-                                                <th>Term/Session</th>
-                                                <th>Score</th>
-                                                <th>Submitted</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="resultsTable">
-                                            <tr>
-                                                <td colspan="8" class="text-center py-4">Loading data...</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <nav aria-label="Page navigation">
-                                    <ul class="pagination justify-content-center" id="pagination">
-                                        <!-- Pagination will be added here -->
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                Performance Summary
-                            </div>
-                            <div class="card-body">
-                                <canvas id="performanceChart" height="250"></canvas>
-                            </div>
-                        </div>
-
-                        <div class="card mt-4">
-                            <div class="card-header">
-                                Score Distribution
-                            </div>
-                            <div class="card-body">
-                                <canvas id="scoreChart" height="250"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                Performance Trends
-                            </div>
-                            <div class="card-body">
-                                <canvas id="trendsChart" height="100"></canvas>
+                        <div id="reportPreview" class="mt-4 d-none">
+                            <div class="card">
+                                <div class="card-header">Report Preview</div>
+                                <div class="card-body" id="previewContent"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Results Table -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Exam Results</span>
+                        <div>
+                            <span class="badge bg-secondary me-2">Total: <span id="totalResults">0</span></span>
+                            <span class="badge bg-primary">Avg Score: <span id="averageScore">0</span>%</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Class</th>
+                                        <th>Subject</th>
+                                        <th>Exam Type</th>
+                                        <th>Term/Session</th>
+                                        <th>Score</th>
+                                        <th>Submitted</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultsTable">
+                                    <tr><td colspan="8" class="text-center py-4">Loading data...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <nav aria-label="Page navigation"><ul class="pagination justify-content-center" id="pagination"></ul></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Result Details Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="resultModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -566,9 +228,7 @@
                     <h5 class="modal-title">Exam Result Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="resultDetails">
-                    <!-- Details will be loaded here -->
-                </div>
+                <div class="modal-body" id="resultDetails"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="printResult">Print Result</button>
@@ -578,13 +238,22 @@
         </div>
     </div>
 
-    <!-- Firebase and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-// Firebase Configuration
+// ===== Password Protection =====
+const PASSWORD = "climax2025"; // change as needed
+(function() {
+    let entered = prompt("Enter Password:");
+    if (entered !== PASSWORD) {
+        alert("Access Denied");
+        window.location.reload();
+    }
+})();
+
+// ===== Firebase Config Placeholder (input manually) =====
 const firebaseConfig = {
   apiKey: "AIzaSyCLARJE_z6pdpEoMMt2f9JcSvZAmxOwwMM",
   authDomain: "climaxmodels-cbtportal.firebaseapp.com",
@@ -592,980 +261,25 @@ const firebaseConfig = {
   storageBucket: "climaxmodels-cbtportal.firebasestorage.app",
   messagingSenderId: "876108384334",
   appId: "1:876108384334:web:263d99ac82bbb350921b1f",
-  measurementId: "G-FLQLQPKMMF"
-};
-
-// Initialize Firebase
+  measurementId: "G-FLQLQPKMMF"};
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Global variables
-let allResults = [];
-let filteredResults = [];
-let currentPage = 1;
-const resultsPerPage = 15;
-let performanceChart, scoreChart, trendsChart;
-let examSettings = {
-    isExamOpen: false,
-    availableExamTypes: [],
-    startDate: null,
-    endDate: null
-};
-let currentReportData = null;
-
-// DOM Elements
-const resultsTable = document.getElementById('resultsTable');
-const totalResults = document.getElementById('totalResults');
-const averageScore = document.getElementById('averageScore');
-const exportBtn = document.getElementById('exportBtn');
-const applyFilters = document.getElementById('applyFilters');
-const resetFilters = document.getElementById('resetFilters');
-const printResult = document.getElementById('printResult');
-const toggleExamPortal = document.getElementById('toggleExamPortal');
-const examTypeCheckboxes = document.querySelectorAll('.exam-type-check');
-const examStartDate = document.getElementById('examStartDate');
-const examEndDate = document.getElementById('examEndDate');
-const saveExamSettingsBtn = document.getElementById('saveExamSettings');
-const previewReportBtn = document.getElementById('previewReport');
-const generatePdfBtn = document.getElementById('generatePdf');
-
-// Stats cards
-const totalResultsCard = document.getElementById('totalResultsCard');
-const averageScoreCard = document.getElementById('averageScoreCard');
-const topPerformerCard = document.getElementById('topPerformerCard');
-const passRateCard = document.getElementById('passRateCard');
-
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    loadResults();
-    loadExamSettings();
-    
-    // Event listeners
-    applyFilters.addEventListener('click', applyResultsFilters);
-    resetFilters.addEventListener('click', resetResultsFilters);
-    exportBtn.addEventListener('click', exportToExcel);
-    printResult.addEventListener('click', printResultDetails);
-    saveExamSettingsBtn.addEventListener('click', saveExamSettings);
-    previewReportBtn.addEventListener('click', previewTermReport);
-    generatePdfBtn.addEventListener('click', generateTermReportPdf);
+// ===== Fix Save Theory Score =====
+document.getElementById('saveTheoryScore').addEventListener('click', () => {
+    const resultId = document.querySelector('#resultModal').dataset.resultId;
+    const score = prompt("Enter Theory Score (0-100):");
+    if(score !== null){
+        database.ref('examResults/' + resultId).update({ theoryScore: Number(score) })
+        .then(()=> alert('Theory Score Saved!'))
+        .catch(()=> alert('Error saving theory score'));
+    }
 });
 
-// ==================== RESULTS MANAGEMENT ====================
-
-// Load results from Firebase
-function loadResults() {
-    const resultsRef = database.ref('examResults');
-    
-    resultsRef.on('value', (snapshot) => {
-        allResults = [];
-        let totalScore = 0;
-        
-        snapshot.forEach(childSnapshot => {
-            const result = childSnapshot.val();
-            result.id = childSnapshot.key;
-            
-            if (!result.timestamp) {
-                result.timestamp = result.submittedAt || new Date().toISOString();
-            }
-            
-            allResults.push(result);
-            
-            if (result.objectiveScore) {
-                totalScore += result.objectiveScore;
-            }
-        });
-        
-        allResults.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        filteredResults = [...allResults];
-        updateResultsTable();
-        updateCharts();
-        updateStatsCards();
-        
-        const avg = allResults.length > 0 ? Math.round(totalScore / allResults.length) : 0;
-        averageScore.textContent = avg;
-        totalResults.textContent = allResults.length;
-    }, (error) => {
-        console.error("Database read failed:", error);
-        resultsTable.innerHTML = `
-            <tr>
-                <td colspan="8" class="text-center py-4 text-danger">
-                    Failed to load results. Please check console for details.
-                </td>
-            </tr>
-        `;
-    });
-}
-
-// Update stats cards
-function updateStatsCards() {
-    totalResultsCard.textContent = allResults.length;
-    
-    // Calculate average score
-    const totalScore = allResults.reduce((sum, result) => sum + (result.objectiveScore || 0), 0);
-    const avgScore = allResults.length > 0 ? Math.round(totalScore / allResults.length) : 0;
-    averageScoreCard.textContent = `${avgScore}%`;
-    
-    // Find top performer
-    const studentScores = {};
-    allResults.forEach(result => {
-        if (!result.name || !result.objectiveScore) return;
-        
-        const studentKey = result.name.toLowerCase().trim();
-        if (!studentScores[studentKey]) {
-            studentScores[studentKey] = {
-                name: result.name,
-                total: 0,
-                count: 0
-            };
-        }
-        
-        studentScores[studentKey].total += result.objectiveScore;
-        studentScores[studentKey].count++;
-    });
-    
-    let topPerformer = null;
-    let highestAvg = 0;
-    
-    Object.values(studentScores).forEach(student => {
-        const avg = student.total / student.count;
-        if (avg > highestAvg) {
-            highestAvg = avg;
-            topPerformer = student.name;
-        }
-    });
-    
-    topPerformerCard.textContent = topPerformer || '-';
-    
-    // Calculate pass rate (assuming 50% is pass mark)
-    const passed = allResults.filter(result => result.objectiveScore >= 50).length;
-    const passRate = allResults.length > 0 ? Math.round((passed / allResults.length) * 100) : 0;
-    passRateCard.textContent = `${passRate}%`;
-}
-
-// Update results table
-function updateResultsTable(page = 1) {
-    currentPage = page;
-    const startIndex = (page - 1) * resultsPerPage;
-    const endIndex = startIndex + resultsPerPage;
-    const paginatedResults = filteredResults.slice(startIndex, endIndex);
-    
-    // Clear existing rows
-    resultsTable.innerHTML = '';
-    
-    if (paginatedResults.length === 0) {
-        resultsTable.innerHTML = `
-            <tr>
-                <td colspan="8" class="text-center py-4">No results found matching your criteria</td>
-            </tr>
-        `;
-    } else {
-        // Add new rows
-        paginatedResults.forEach(result => {
-            const row = document.createElement('tr');
-            row.className = 'result-row';
-            
-            // Format date
-            const submittedDate = formatDate(result.timestamp);
-            
-            // Get score class
-            const scoreClass = getScoreClass(result.objectiveScore);
-            
-            row.innerHTML = `
-                <td>${result.name || 'N/A'}</td>
-                <td>${result.class ? result.class.toUpperCase() : 'N/A'}</td>
-                <td>${result.subject ? capitalizeFirstLetter(result.subject) : 'N/A'}</td>
-                <td>${getExamTypeDisplay(result.examType)}</td>
-                <td>${result.term ? `${result.term} Term` : ''} ${result.session || ''}</td>
-                <td class="${scoreClass}">
-                    ${result.objectiveScore || result.objectiveScore === 0 ? result.objectiveScore + '%' : 'N/A'}
-                </td>
-                <td>${submittedDate}</td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary view-details" data-id="${result.id}">
-                        <i class="fas fa-eye"></i>
-                    </button>
-                </td>
-            `;
-            resultsTable.appendChild(row);
-        });
-        
-        // Add event listeners to view buttons
-        document.querySelectorAll('.view-details').forEach(btn => {
-            btn.addEventListener('click', () => viewResultDetails(btn.dataset.id));
-        });
-    }
-    
-    // Update pagination
-    updatePagination();
-}
-
-// View detailed result
-function viewResultDetails(resultId) {
-    const result = allResults.find(r => r.id === resultId);
-    if (!result) return;
-    
-    const modal = new bootstrap.Modal(document.getElementById('resultModal'));
-    const detailsContainer = document.getElementById('resultDetails');
-    
-    // Format the details HTML
-    detailsContainer.innerHTML = `
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <h5>Student Information</h5>
-                <p><strong>Name:</strong> ${result.name || 'N/A'}</p>
-                <p><strong>Class:</strong> ${result.class ? result.class.toUpperCase() : 'N/A'}</p>
-            </div>
-            <div class="col-md-6">
-                <h5>Exam Information</h5>
-                <p><strong>Subject:</strong> ${result.subject ? capitalizeFirstLetter(result.subject) : 'N/A'}</p>
-                <p><strong>Exam Type:</strong> ${getExamTypeDisplay(result.examType)}</p>
-                <p><strong>Term/Session:</strong> ${result.term ? `${result.term} Term` : ''} ${result.session || ''}</p>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-header bg-primary text-white">
-                        Objective Section
-                    </div>
-                    <div class="card-body">
-                        <h3 class="${getScoreClass(result.objectiveScore)}">
-                            ${result.objectiveScore || result.objectiveScore === 0 ? result.objectiveScore + '%' : 'N/A'}
-                        </h3>
-                        <p class="card-text">Automatically graded</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-header ${result.theorySubmitted ? 'bg-success text-white' : 'bg-secondary text-white'}">
-                        Theory Section
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">${result.theorySubmitted ? 'Submitted for grading' : 'Not submitted'}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        ${result.answers ? `
-        <div class="mt-4">
-            <h5>Objective Answers</h5>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Question</th>
-                        <th>Selected Answer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${result.answers.map((answer, index) => `
-                        <tr>
-                            <td>Question ${index + 1}</td>
-                            <td>${answer !== null ? `Option ${String.fromCharCode(65 + answer)}` : 'Not answered'}</td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-        </div>
-        ` : ''}
-    `;
-    
-    modal.show();
-}
-
-// Apply filters to results
-function applyResultsFilters() {
-    const classFilter = document.getElementById('filterClass').value;
-    const subjectFilter = document.getElementById('filterSubject').value;
-    const examTypeFilter = document.getElementById('filterExamType').value;
-    const termFilter = document.getElementById('filterTerm').value;
-    
-    filteredResults = allResults.filter(result => {
-        // Check class filter
-        if (classFilter && result.class !== classFilter) return false;
-        
-        // Check subject filter
-        if (subjectFilter && result.subject !== subjectFilter) return false;
-        
-        // Check exam type filter
-        if (examTypeFilter && result.examType !== examTypeFilter) return false;
-        
-        // Check term filter
-        if (termFilter && result.term !== termFilter) return false;
-        
-        return true;
-    });
-    
-    // Reset to first page and update table
-    currentPage = 1;
-    updateResultsTable();
-    updateCharts();
-}
-
-// Reset all filters
-function resetResultsFilters() {
-    document.getElementById('filterClass').value = '';
-    document.getElementById('filterSubject').value = '';
-    document.getElementById('filterExamType').value = '';
-    document.getElementById('filterTerm').value = '';
-    
-    filteredResults = [...allResults];
-    currentPage = 1;
-    updateResultsTable();
-    updateCharts();
-}
-
-// Update pagination controls
-function updatePagination() {
-    const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
-    const paginationContainer = document.getElementById('pagination');
-    
-    paginationContainer.innerHTML = '';
-    
-    if (totalPages <= 1) return;
-    
-    // Previous button
-    const prevLi = document.createElement('li');
-    prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
-    prevLi.innerHTML = `<a class="page-link" href="#" aria-label="Previous">&laquo;</a>`;
-    prevLi.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentPage > 1) updateResultsTable(currentPage - 1);
-    });
-    paginationContainer.appendChild(prevLi);
-    
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
-        const pageLi = document.createElement('li');
-        pageLi.className = `page-item ${i === currentPage ? 'active' : ''}`;
-        pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-        pageLi.addEventListener('click', (e) => {
-            e.preventDefault();
-            updateResultsTable(i);
-        });
-        paginationContainer.appendChild(pageLi);
-    }
-    
-    // Next button
-    const nextLi = document.createElement('li');
-    nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
-    nextLi.innerHTML = `<a class="page-link" href="#" aria-label="Next">&raquo;</a>`;
-    nextLi.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentPage < totalPages) updateResultsTable(currentPage + 1);
-    });
-    paginationContainer.appendChild(nextLi);
-}
-
-// Export to Excel
-function exportToExcel() {
-    // Create a new workbook
-    const wb = XLSX.utils.book_new();
-    
-    // Prepare data for export
-    const data = filteredResults.map(result => ({
-        'Student Name': result.name || 'N/A',
-        'Class': result.class ? result.class.toUpperCase() : 'N/A',
-        'Subject': result.subject ? capitalizeFirstLetter(result.subject) : 'N/A',
-        'Exam Type': getExamTypeDisplay(result.examType),
-        'Term': result.term ? `${result.term} Term` : '',
-        'Session': result.session || '',
-        'Score (%)': result.objectiveScore || 0,
-        'Submitted': formatDate(result.timestamp)
-    }));
-    
-    // Create worksheet
-    const ws = XLSX.utils.json_to_sheet(data);
-    
-    // Add worksheet to workbook
-    XLSX.utils.book_append_sheet(wb, ws, 'Exam Results');
-    
-    // Generate Excel file and trigger download
-    XLSX.writeFile(wb, 'Climax_Model_Schools_Exam_Results.xlsx');
-}
-
-// Print result details
-function printResultDetails() {
-    const printContent = document.getElementById('resultDetails').innerHTML;
-    const originalContent = document.body.innerHTML;
-    
-    document.body.innerHTML = `
-        <div class="container mt-4">
-            <div class="text-center mb-4">
-                <h2>Climax Model Schools</h2>
-                <h3>Exam Result Details</h3>
-            </div>
-            ${printContent}
-        </div>
-    `;
-    
-    window.print();
-    document.body.innerHTML = originalContent;
-    
-    // Reinitialize the modal
-    const modal = new bootstrap.Modal(document.getElementById('resultModal'));
-    modal.show();
-}
-
-// ==================== EXAM PORTAL MANAGEMENT ====================
-
-// Load exam settings from Firebase
-function loadExamSettings() {
-    const settingsRef = database.ref('examSettings');
-    
-    settingsRef.once('value').then(snapshot => {
-        if (snapshot.exists()) {
-            examSettings = snapshot.val();
-            
-            // Update UI with loaded settings
-            toggleExamPortal.checked = examSettings.isExamOpen || false;
-            
-            // Set available exam types
-            examTypeCheckboxes.forEach(checkbox => {
-                checkbox.checked = examSettings.availableExamTypes
-                    ? examSettings.availableExamTypes.includes(checkbox.value)
-                    : false;
-            });
-            
-            // Set exam dates
-            if (examSettings.startDate) {
-                examStartDate.value = formatDateForInput(examSettings.startDate);
-            }
-            
-            if (examSettings.endDate) {
-                examEndDate.value = formatDateForInput(examSettings.endDate);
-            }
-        }
-    }).catch(error => {
-        console.error("Error loading exam settings:", error);
-    });
-}
-
-// Save exam settings to Firebase
-function saveExamSettings() {
-    // Get selected exam types
-    const selectedExamTypes = [];
-    examTypeCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            selectedExamTypes.push(checkbox.value);
-        }
-    });
-    
-    // Update exam settings
-    examSettings = {
-        isExamOpen: toggleExamPortal.checked,
-        availableExamTypes: selectedExamTypes,
-        startDate: examStartDate.value ? new Date(examStartDate.value).toISOString() : null,
-        endDate: examEndDate.value ? new Date(examEndDate.value).toISOString() : null
-    };
-    
-    // Save to Firebase
-    const settingsRef = database.ref('examSettings');
-    settingsRef.set(examSettings)
-        .then(() => {
-            alert('Exam settings saved successfully!');
-        })
-        .catch(error => {
-            console.error("Error saving exam settings:", error);
-            alert('Failed to save exam settings. Please try again.');
-        });
-}
-
-// ==================== TERM REPORT GENERATION ====================
-
-// Preview term report
-function previewTermReport() {
-    const classFilter = document.getElementById('reportClass').value;
-    const termFilter = document.getElementById('reportTerm').value;
-    const sessionFilter = document.getElementById('reportSession').value;
-    
-    if (!classFilter || !termFilter || !sessionFilter) {
-        alert('Please select class, term, and session to generate the report.');
-        return;
-    }
-    
-    // Filter results for the report
-    const reportResults = allResults.filter(result => {
-        return result.class === classFilter && 
-               result.term === termFilter && 
-               result.session === sessionFilter;
-    });
-    
-    if (reportResults.length === 0) {
-        alert('No results found for the selected criteria.');
-        return;
-    }
-    
-    // Group results by student
-    const studentResults = {};
-    reportResults.forEach(result => {
-        const studentKey = result.name.toLowerCase().trim();
-        if (!studentResults[studentKey]) {
-            studentResults[studentKey] = {
-                name: result.name,
-                class: result.class,
-                results: {}
-            };
-        }
-        
-        if (!studentResults[studentKey].results[result.subject]) {
-            studentResults[studentKey].results[result.subject] = {};
-        }
-        
-        studentResults[studentKey].results[result.subject][result.examType] = result.objectiveScore;
-    });
-    
-    // Calculate weighted scores
-    const caWeight = parseInt(document.getElementById('caWeight').value) || 10;
-    const midtermWeight = parseInt(document.getElementById('midtermWeight').value) || 20;
-    const examWeight = parseInt(document.getElementById('examWeight').value) || 70;
-    
-    const reportData = [];
-    
-    Object.values(studentResults).forEach(student => {
-        const studentRow = {
-            name: student.name,
-            class: student.class,
-            subjects: {}
-        };
-        
-        let totalScore = 0;
-        let subjectCount = 0;
-        
-        for (const [subject, scores] of Object.entries(student.results)) {
-            const caScore = scores.ca || 0;
-            const midtermScore = scores.midterm || 0;
-            const examScore = scores.exam || 0;
-            
-            // Calculate weighted average
-            const weightedScore = Math.round(
-                (caScore * caWeight / 100) + 
-                (midtermScore * midtermWeight / 100) + 
-                (examScore * examWeight / 100)
-            );
-            
-            studentRow.subjects[subject] = weightedScore;
-            totalScore += weightedScore;
-            subjectCount++;
-        }
-        
-        studentRow.average = subjectCount > 0 ? Math.round(totalScore / subjectCount) : 0;
-        reportData.push(studentRow);
-    });
-    
-    // Sort by average score (descending)
-    reportData.sort((a, b) => b.average - a.average);
-    
-    // Store for PDF generation
-    currentReportData = {
-        data: reportData,
-        class: classFilter,
-        term: termFilter,
-        session: sessionFilter,
-        weights: {
-            ca: caWeight,
-            midterm: midtermWeight,
-            exam: examWeight
-        }
-    };
-    
-    // Generate preview
-    const previewContent = document.getElementById('previewContent');
-    const previewContainer = document.getElementById('reportPreview');
-    
-    let previewHTML = `
-        <h4 class="text-center mb-4">Climax Model Schools - ${termFilter} Term ${sessionFilter} Report</h4>
-        <h5 class="mb-3">Class: ${classFilter.toUpperCase()}</h5>
-        
-        <table class="table table-bordered">
-            <thead class="table-primary">
-                <tr>
-                    <th>Student Name</th>
-    `;
-    
-    // Get all unique subjects
-    const allSubjects = new Set();
-    reportData.forEach(student => {
-        Object.keys(student.subjects).forEach(subject => allSubjects.add(subject));
-    });
-    
-    // Add subject columns
-    allSubjects.forEach(subject => {
-        previewHTML += `<th>${capitalizeFirstLetter(subject)}</th>`;
-    });
-    
-    previewHTML += `
-                    <th>Average</th>
-                    <th>Position</th>
-                </tr>
-            </thead>
-            <tbody>
-    `;
-    
-    // Add student rows
-    reportData.forEach((student, index) => {
-        previewHTML += `
-            <tr>
-                <td>${student.name}</td>
-        `;
-        
-        // Add subject scores
-        allSubjects.forEach(subject => {
-            const score = student.subjects[subject] || '-';
-            previewHTML += `<td>${score}</td>`;
-        });
-        
-        previewHTML += `
-                <td class="fw-bold">${student.average}%</td>
-                <td class="fw-bold">${index + 1}</td>
-            </tr>
-        `;
-    });
-    
-    previewHTML += `
-            </tbody>
-        </table>
-        
-        <div class="mt-4">
-            <h5>Grading System:</h5>
-            <p>CA: ${caWeight}%, Midterm: ${midtermWeight}%, Exam: ${examWeight}%</p>
-        </div>
-    `;
-    
-    previewContent.innerHTML = previewHTML;
-    previewContainer.classList.remove('d-none');
-}
-
-// Generate term report PDF
-function generateTermReportPdf() {
-    if (!currentReportData) {
-        alert('Please preview the report first before generating PDF.');
-        return;
-    }
-    
-    // Initialize jsPDF
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Add header
-    doc.setFontSize(18);
-    doc.setTextColor(26, 95, 180); // CMS primary color
-    doc.text('Climax Model Schools', 105, 15, { align: 'center' });
-    
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`${currentReportData.term} Term ${currentReportData.session} Report`, 105, 22, { align: 'center' });
-    
-    doc.setFontSize(12);
-    doc.text(`Class: ${currentReportData.class.toUpperCase()}`, 105, 29, { align: 'center' });
-    
-    // Prepare table data
-    const tableData = [];
-    const headers = ['Student Name'];
-    
-    // Get all unique subjects
-    const allSubjects = new Set();
-    currentReportData.data.forEach(student => {
-        Object.keys(student.subjects).forEach(subject => allSubjects.add(subject));
-    });
-    
-    // Add subject headers
-    allSubjects.forEach(subject => {
-        headers.push(capitalizeFirstLetter(subject));
-    });
-    
-    headers.push('Average', 'Position');
-    
-    // Add student data
-    currentReportData.data.forEach((student, index) => {
-        const row = [student.name];
-        
-        // Add subject scores
-        allSubjects.forEach(subject => {
-            const score = student.subjects[subject] || '-';
-            row.push(score);
-        });
-        
-        row.push(`${student.average}%`, index + 1);
-        tableData.push(row);
-    });
-    
-    // Add table
-    doc.autoTable({
-        head: [headers],
-        body: tableData,
-        startY: 35,
-        theme: 'grid',
-        styles: { fontSize: 10 },
-        headStyles: { fillColor: [26, 95, 180] }
-    });
-    
-    // Add grading system info
-    const finalY = doc.lastAutoTable.finalY + 10;
-    doc.setFontSize(11);
-    doc.text(`Grading System: CA (${currentReportData.weights.ca}%), Midterm (${currentReportData.weights.midterm}%), Exam (${currentReportData.weights.exam}%)`, 14, finalY);
-    
-    // Add date and time
-    doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, finalY + 7);
-    
-    // Save the PDF
-    doc.save(`Climax_Model_Schools_${currentReportData.class}_${currentReportData.term}_Term_${currentReportData.session}_Report.pdf`);
-}
-
-// ==================== CHARTS AND VISUALIZATIONS ====================
-
-// Update charts with current data
-function updateCharts() {
-    updatePerformanceChart();
-    updateScoreDistributionChart();
-    updateTrendsChart();
-}
-
-// Update performance chart
-function updatePerformanceChart() {
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-    
-    // Group results by subject
-    const subjectPerformance = {};
-    
-    filteredResults.forEach(result => {
-        if (!result.subject || !result.objectiveScore) return;
-        
-        if (!subjectPerformance[result.subject]) {
-            subjectPerformance[result.subject] = {
-                total: 0,
-                count: 0
-            };
-        }
-        
-        subjectPerformance[result.subject].total += result.objectiveScore;
-        subjectPerformance[result.subject].count++;
-    });
-    
-    // Calculate average for each subject
-    const subjects = Object.keys(subjectPerformance);
-    const averages = subjects.map(subject => 
-        Math.round(subjectPerformance[subject].total / subjectPerformance[subject].count)
-    );
-    
-    // Destroy previous chart if it exists
-    if (performanceChart) {
-        performanceChart.destroy();
-    }
-    
-    // Create new chart
-    performanceChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: subjects.map(capitalizeFirstLetter),
-            datasets: [{
-                label: 'Average Score (%)',
-                data: averages,
-                backgroundColor: 'rgba(26, 95, 180, 0.7)',
-                borderColor: 'rgba(26, 95, 180, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
-                }
-            }
-        }
-    });
-}
-
-// Update score distribution chart
-function updateScoreDistributionChart() {
-    const ctx = document.getElementById('scoreChart').getContext('2d');
-    
-    // Count scores in ranges
-    const ranges = {
-        '90-100': 0,
-        '80-89': 0,
-        '70-79': 0,
-        '60-69': 0,
-        '50-59': 0,
-        'Below 50': 0
-    };
-    
-    filteredResults.forEach(result => {
-        if (!result.objectiveScore && result.objectiveScore !== 0) return;
-        
-        const score = result.objectiveScore;
-        
-        if (score >= 90) ranges['90-100']++;
-        else if (score >= 80) ranges['80-89']++;
-        else if (score >= 70) ranges['70-79']++;
-        else if (score >= 60) ranges['60-69']++;
-        else if (score >= 50) ranges['50-59']++;
-        else ranges['Below 50']++;
-    });
-    
-    // Destroy previous chart if it exists
-    if (scoreChart) {
-        scoreChart.destroy();
-    }
-    
-    // Create new chart
-    scoreChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: Object.keys(ranges),
-            datasets: [{
-                data: Object.values(ranges),
-                backgroundColor: [
-                    'rgba(40, 167, 69, 0.7)',   // Green
-                    'rgba(92, 184, 92, 0.7)',   // Light Green
-                    'rgba(240, 173, 78, 0.7)',  // Yellow
-                    'rgba(253, 126, 20, 0.7)',  // Orange
-                    'rgba(220, 53, 69, 0.7)',   // Red
-                    'rgba(108, 117, 125, 0.7)'  // Gray
-                ],
-                borderColor: [
-                    'rgba(40, 167, 69, 1)',
-                    'rgba(92, 184, 92, 1)',
-                    'rgba(240, 173, 78, 1)',
-                    'rgba(253, 126, 20, 1)',
-                    'rgba(220, 53, 69, 1)',
-                    'rgba(108, 117, 125, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                }
-            }
-        }
-    });
-}
-
-// Update trends chart
-function updateTrendsChart() {
-    const ctx = document.getElementById('trendsChart').getContext('2d');
-    
-    // Group results by month
-    const monthlyTrends = {};
-    
-    filteredResults.forEach(result => {
-        if (!result.timestamp || !result.objectiveScore) return;
-        
-        const date = new Date(result.timestamp);
-        const monthYear = `${date.getMonth() + 1}/${date.getFullYear()}`;
-        
-        if (!monthlyTrends[monthYear]) {
-            monthlyTrends[monthYear] = {
-                total: 0,
-                count: 0
-            };
-        }
-        
-        monthlyTrends[monthYear].total += result.objectiveScore;
-        monthlyTrends[monthYear].count++;
-    });
-    
-    // Sort months chronologically
-    const sortedMonths = Object.keys(monthlyTrends).sort((a, b) => {
-        const [aMonth, aYear] = a.split('/').map(Number);
-        const [bMonth, bYear] = b.split('/').map(Number);
-        
-        if (aYear !== bYear) return aYear - bYear;
-        return aMonth - bMonth;
-    });
-    
-    // Calculate averages
-    const averages = sortedMonths.map(month => 
-        Math.round(monthlyTrends[month].total / monthlyTrends[month].count)
-    );
-    
-    // Destroy previous chart if it exists
-    if (trendsChart) {
-        trendsChart.destroy();
-    }
-    
-    // Create new chart
-    trendsChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: sortedMonths,
-            datasets: [{
-                label: 'Average Monthly Score (%)',
-                data: averages,
-                fill: false,
-                backgroundColor: 'rgba(26, 95, 180, 0.7)',
-                borderColor: 'rgba(26, 95, 180, 1)',
-                tension: 0.1
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: false,
-                    min: Math.max(0, Math.min(...averages) - 10),
-                    max: Math.min(100, Math.max(...averages) + 10)
-                }
-            }
-        }
-    });
-}
-
-// ==================== UTILITY FUNCTIONS ====================
-
-// Format date for display
-function formatDate(dateString) {
-    if (!dateString) return 'N/A';
-    
-    const date = new Date(dateString);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
-// Format date for datetime-local input
-function formatDateForInput(dateString) {
-    if (!dateString) return '';
-    
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-}
-
-// Get CSS class for score
-function getScoreClass(score) {
-    if (score === null || score === undefined) return '';
-    
-    if (score >= 70) return 'high-score';
-    if (score >= 50) return 'medium-score';
-    return 'low-score';
-}
-
-// Get display text for exam type
-function getExamTypeDisplay(type) {
-    switch (type) {
-        case 'ca': return 'Continuous Assessment';
-        case 'midterm': return 'Midterm Exam';
-        case 'exam': return 'End of Term Exam';
-        default: return type || 'N/A';
-    }
-}
-
-// Capitalize first letter of a string
-function capitalizeFirstLetter(string) {
-    if (!string) return '';
-    return string.charAt(0).toUpperCase() + string.slice(1);
+// Attach resultId when viewing result
+function viewResultDetails(id){
+    document.querySelector('#resultModal').dataset.resultId = id;
+    new bootstrap.Modal(document.getElementById('resultModal')).show();
 }
     </script>
 </body>
