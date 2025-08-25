@@ -584,6 +584,15 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
+        // ===== Password Protection =====
+const PASSWORD = "climax2025"; // change as needed
+(function() {
+    let entered = prompt("Enter Password:");
+    if (entered !== PASSWORD) {
+        alert("Access Denied");
+        window.location.reload();
+    }
+})();
 // Firebase Configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDuKgSUZejLLveOe8oXlHo64OnCDFvwPc4",
@@ -1585,3 +1594,4 @@ function viewResultDetails(id){
     </script>
 </body>
 </html>
+
