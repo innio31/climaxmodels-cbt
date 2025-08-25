@@ -1542,7 +1542,24 @@ function calculateGrade(score) {
     if (score >= 40) return 'E8';
     return 'F9';
 }
+        // ===== Fix Save Theory Score =====
+document.getElementById('saveTheoryScore').addEventListener('click', () => {
+    const resultId = document.querySelector('#resultModal').dataset.resultId;
+    const score = prompt("Enter Theory Score (0-100):");
+    if(score !== null){
+        database.ref('examResults/' + resultId).update({ theoryScore: Number(score) })
+        .then(()=> alert('Theory Score Saved!'))
+        .catch(()=> alert('Error saving theory score'));
+    }
+});
+
+// Attach resultId when viewing result
+function viewResultDetails(id){
+    document.querySelector('#resultModal').dataset.resultId = id;
+    new bootstrap.Modal(document.getElementById('resultModal')).show();
+}
     </script>
 </body>
 </html>
+
 
