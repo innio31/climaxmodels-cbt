@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Mode - Climax Model Schools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a1d96;  /* Deep purple */
+            --secondary: #7e22ce;  /* Medium purple */
+            --accent: #f97316;  /* Vibrant orange */
+            --light: #faf5ff;  /* Very light purple */
+            --dark: #1f2937;  /* Dark gray */
+            --success: #22c55e;  /* Success green */
+            --warning: #eab308;  /* Warning yellow */
+            --danger: #ef4444;  /* Danger red */
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f9f3ff 0%, #f5e8f5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 1.8rem 1rem;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        .page-title {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--primary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        
+        .back-btn i {
+            margin-right: 8px;
+        }
+        
+        .main-container {
+            max-width: 850px;
+            margin: 1.5rem auto;
+            padding: 0 25px;
+            flex: 1;
+        }
+        
+        /* Form container styles */
+        .form-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 0 0 0 100%;
+            opacity: 0.1;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.05rem;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e9d5ff;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: #faf5ff;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.2);
+        }
+        
+        input[type="number"] {
+            max-width: 120px;
+        }
+        
+        .start-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(126, 34, 206, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .start-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(126, 34, 206, 0.4);
+        }
+        
+        .start-btn:hover::before {
+            left: 100%;
+        }
+        
+        .info-box {
+            background: rgba(126, 34, 206, 0.08);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--secondary);
+            position: relative;
+        }
+        
+        .info-box i {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+        
+        /* Exam container styles (initially hidden) */
+        .exam-container {
+            display: none;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .exam-container::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, var(--accent), #fb923c);
+            border-radius: 100% 0 0 0;
+            opacity: 0.1;
+        }
+        
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px solid #f3e8ff;
+        }
+        
+        .exam-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .exam-info p {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+        
+        .timer {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(126, 34, 206, 0.3);
+            display: flex;
+            align-items: center;
+        }
+        
+        .timer i {
+            margin-right: 8px;
+        }
+        
+        .timer.warning {
+            background: linear-gradient(to right, var(--warning), #f59e0b);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .question-container {
+            margin-bottom: 2.5rem;
+        }
+        
+        .question-number {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-number span {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .question-text {
+            font-size: 1.15rem;
+            margin-bottom: 1.8rem;
+            line-height: 1.7;
+            background: #faf5ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .options-container {
+            margin-left: 0.5rem;
+        }
+        
+        .option {
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .option:hover {
+            background: #f3e8ff;
+            transform: translateX(5px);
+        }
+        
+        .option input {
+            width: auto;
+            margin-right: 15px;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .option label {
+            margin-bottom: 0;
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(126, 34, 206, 0.3);
+        }
+        
+        .nav-btn i {
+            margin-right: 8px;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(126, 34, 206, 0.4);
+        }
+        
+        .nav-btn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--accent), #fb923c);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 2.5rem auto 0;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+        }
+        
+        /* Results container styles */
+        .result-container {
+            display: none;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .result-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, var(--success), #16a34a);
+            border-radius: 0 0 0 100%;
+            opacity: 0.1;
+        }
+        
+        .result-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        
+        .result-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .result-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .score-display {
+            display: inline-block;
+            position: relative;
+            margin: 1.5rem 0;
+        }
+        
+        .score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--secondary);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .score-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            font-weight: 800;
+            color: #f3e8ff;
+            z-index: 1;
+        }
+        
+        .feedback-container {
+            margin: 2.5rem 0;
+        }
+        
+        .feedback-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: #faf5ff;
+        }
+        
+        .feedback-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e9d5ff;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feedback-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .feedback-text {
+            line-height: 1.7;
+            color: var(--dark);
+        }
+        
+        .answers-review {
+            margin-top: 2.5rem;
+        }
+        
+        .review-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: #faf5ff;
+            transition: all 0.3s ease;
+        }
+        
+        .review-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .correct-answer {
+            background-color: rgba(34, 197, 94, 0.08);
+            border-left: 4px solid var(--success);
+        }
+        
+        .incorrect-answer {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-left: 4px solid var(--danger);
+        }
+        
+        .review-question {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .review-question i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .review-answer {
+            margin: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .review-answer::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+        
+        .correct {
+            color: var(--success);
+            font-weight: 600;
+        }
+        
+        .incorrect {
+            color: var(--danger);
+            font-weight: 600;
+        }
+        
+        .user-selected {
+            font-weight: 600;
+        }
+        
+        .topic-tag {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .action-btn {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(126, 34, 206, 0.3);
+        }
+        
+        .action-btn i {
+            margin-right: 10px;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(126, 34, 206, 0.4);
+        }
+        
+        .action-btn.secondary {
+            background: linear-gradient(to right, #4b5563, #6b7280);
+        }
+        
+        .action-btn.secondary:hover {
+            box-shadow: 0 8px 20px rgba(107, 114, 128, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            margin-top: auto;
+        }
+        
+        .footer p {
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Progress bar */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #e9d5ff;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: auto;
+                top: auto;
+                margin-bottom: 1rem;
+                justify-content: center;
+                display: inline-flex;
+            }
+            
+            .exam-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.2rem;
+            }
+            
+            .timer {
+                align-self: stretch;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .main-container {
+                padding: 0 15px;
+            }
+            
+            .form-container, .exam-container, .result-container {
+                padding: 1.8rem;
+            }
+            
+            .question-text {
+                padding: 1.2rem;
+            }
+        }
+        
+        /* Animation for correct/incorrect answers */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .review-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Confetti effect */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary);
+            opacity: 0;
+            pointer-events: none;
+            animation: confetti-fall 5s linear forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-btn animate__animated animate__fadeIn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <h2>CBT Portal - Practice Mode</h2>
+    </header>
+    
+    <div class="main-container">
+        <h1 class="page-title">Practice Session</h1>
+        
+        <!-- Selection Form -->
+        <div class="form-container animate__animated animate__fadeInUp" id="selectionForm">
+            <div class="form-group">
+                <label for="examType"><i class="fas fa-graduation-cap"></i> Select Exam Type:</label>
+                <select id="examType">
+                    <option value="">-- Select Exam Type --</option>
+                    <option value="bece">BECE</option>
+                    <option value="waec">WAEC</option>
+                    <option value="jamb">JAMB</option>
+                    <option value="neco">NECO</option>
+                    <option value="nabteb">NABTEB</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject"><i class="fas fa-book"></i> Select Subject:</label>
+                <select id="subject">
+                    <option value="">-- Select Subject --</option>
+                    <!-- Subjects will be populated by JavaScript -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="questionCount"><i class="fas fa-list-ol"></i> Number of Questions (5-50):</label>
+                <input type="number" id="questionCount" min="5" max="50" value="20">
+            </div>
+            
+            <button class="start-btn" id="startPractice">
+                <i class="fas fa-play-circle"></i> Start Practice Session
+            </button>
+            
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <p><strong>Note:</strong> You'll have 45 seconds per question. Questions and options are shuffled each time. Results and feedback will be shown immediately after submission.</p>
+            </div>
+        </div>
+        
+        <!-- Exam Container (hidden initially) -->
+        <div class="exam-container" id="examContainer">
+            <div class="exam-header">
+                <div class="exam-info">
+                    <h3 id="examTitle"></h3>
+                    <p id="subjectInfo"></p>
+                </div>
+                <div class="timer" id="timer">
+                    <i class="fas fa-clock"></i> <span>00:00</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="question-container" id="questionContainer">
+                <!-- Questions will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button class="nav-btn" id="nextBtn">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <button class="submit-btn" id="submitBtn">
+                <i class="fas fa-paper-plane"></i> Submit Practice
+            </button>
+        </div>
+        
+        <!-- Results Container (hidden initially) -->
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2 class="result-title">Practice Results</h2>
+                <div class="score-display">
+                    <div class="score-bg" id="scoreBg">SCORE</div>
+                    <div class="score" id="scoreDisplay">0%</div>
+                </div>
+                <div id="scoreMessage"></div>
+            </div>
+            
+            <div class="feedback-container">
+                <div class="feedback-section">
+                    <h3 class="feedback-title"><i class="fas fa-chart-line"></i> Overall Performance</h3>
+                    <p class="feedback-text" id="generalFeedback"></p>
+                </div>
+                
+                <div class="feedback-section">
+                    <h3 class="feedback-title"><i class="fas fa-bullseye"></i> Areas for Improvement</h3>
+                    <p class="feedback-text" id="improvementFeedback"></p>
+                </div>
+                
+                <div class="feedback-section">
+                    <h3 class="feedback-title"><i class="fas fa-lightbulb"></i> Recommendations</h3>
+                    <p class="feedback-text" id="recommendationFeedback"></p>
+                </div>
+            </div>
+            
+            <div class="answers-review" id="answersReview">
+                <h3 class="feedback-title"><i class="fas fa-list-check"></i> Review Your Answers</h3>
+                <!-- Answers will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn" id="newPracticeBtn">
+                    <i class="fas fa-redo"></i> Start New Practice
+                </button>
+                <button class="action-btn secondary" id="reviewAnswersBtn">
+                    <i class="fas fa-book"></i> Review Study Materials
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>The Climax Model Schools, Ota - Excellence in Education Since 1995</p>
+        <p>© 2025 All Rights Reserved | Powered by <a href="https://digskills.netlify.app" target="_blank">DigSkills</a></p>
+    </footer>
+
+    <script>
+    // Enhanced Question Bank with more subjects and questions
+    const questionBank = {
+        bece: {
+            mathematics: [
+                {
+                    question: "What is the value of 5 squared?",
+                    options: ["10", "15", "20", "25"],
+                    answer: 3,
+                    topic: "Basic Arithmetic"
+                },
+                {
+                    question: "If x + 5 = 12, what is the value of x?",
+                    options: ["5", "6", "7", "8"],
+                    answer: 2,
+                    topic: "Algebra"
+                },
+                {
+                    question: "What is the area of a rectangle with length 8cm and width 5cm?",
+                    options: ["13cm²", "26cm²", "35cm²", "40cm²"],
+                    answer: 3,
+                    topic: "Geometry"
+                },
+                {
+                    question: "Simplify: 2(x + 3) - 3(x - 1)",
+                    options: ["-x + 9", "-x + 3", "x + 9", "x + 3"],
+                    answer: 0,
+                    topic: "Algebra"
+                },
+                {
+                    question: "Solve the equation: 2x² - 5x - 3 = 0",
+                    options: ["x = 3, x = -0.5", "x = -3, x = 0.5", "x = 1.5, x = -1", "x = -1.5, x = 1"],
+                    answer: 0,
+                    topic: "Algebra"
+                }
+            ],
+            english: [
+                {
+                    question: "Which of the following is a noun?",
+                    options: ["run", "beautiful", "school", "quickly"],
+                    answer: 2,
+                    topic: "Parts of Speech"
+                },
+                {
+                    question: "Choose the correct spelling:",
+                    options: ["Accomodate", "Acommodate", "Accommodate", "Acomodate"],
+                    answer: 2,
+                    topic: "Spelling"
+                },
+                {
+                    question: "Identify the adverb in the sentence: 'She sang beautifully at the concert last night.'",
+                    options: ["she", "sang", "beautifully", "concert"],
+                    answer: 2,
+                    topic: "Parts of Speech"
+                }
+            ],
+            science: [
+                {
+                    question: "What is the chemical symbol for water?",
+                    options: ["H2O", "CO2", "NaCl", "O2"],
+                    answer: 0,
+                    topic: "Chemistry"
+                },
+                {
+                    question: "Which planet is known as the Red Planet?",
+                    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                    answer: 1,
+                    topic: "Astronomy"
+                },
+                {
+                    question: "What process do plants use to make their own food?",
+                    options: ["Respiration", "Photosynthesis", "Digestion", "Transpiration"],
+                    answer: 1,
+                    topic: "Biology"
+                }
+            ],
+            social_studies: [
+                {
+                    question: "Which of these is not a branch of government?",
+                    options: ["Executive", "Legislative", "Judicial", "Military"],
+                    answer: 3,
+                    topic: "Civics"
+                }
+            ]
+        },
+        waec: {
+            mathematics: [
+                {
+                    question: "Solve for x: 2x + 5 = 15",
+                    options: ["5", "10", "7.5", "20"],
+                    answer: 0,
+                    topic: "Algebra"
+                },
+                {
+                    question: "What is the value of π (pi) to two decimal places?",
+                    options: ["3.14", "3.16", "3.12", "3.18"],
+                    answer: 0,
+                    topic: "Geometry"
+                },
+                {
+                    question: "Differentiate y = 3x² + 2x - 5 with respect to x",
+                    options: ["6x + 2", "3x + 2", "6x - 5", "3x² + 2"],
+                    answer: 0,
+                    topic: "Calculus"
+                }
+            ],
+            physics: [
+                {
+                    question: "What is the SI unit of force?",
+                    options: ["Joule", "Newton", "Watt", "Pascal"],
+                    answer: 1,
+                    topic: "Measurement"
+                },
+                {
+                    question: "Which of the following is a vector quantity?",
+                    options: ["Mass", "Temperature", "Velocity", "Time"],
+                    answer: 2,
+                    topic: "Measurement"
+                }
+            ],
+            chemistry: [
+                {
+                    question: "What is the atomic number of oxygen?",
+                    options: ["6", "8", "16", "32"],
+                    answer: 1,
+                    topic: "Periodic Table"
+                },
+                {
+                    question: "What is the pH value of pure water?",
+                    options: ["5", "7", "9", "11"],
+                    answer: 1,
+                    topic: "Acids and Bases"
+                }
+            ],
+            english: [
+                {
+                    question: "Choose the correct option to complete the sentence: 'If I _____ earlier, I would have caught the train.'",
+                    options: ["had left", "have left", "left", "would leave"],
+                    answer: 0,
+                    topic: "Grammar"
+                }
+            ]
+        },
+        jamb: {
+            mathematics: [
+                {
+                    question: "If y = x² + 3x - 4, what is the value of y when x = 2?",
+                    options: ["2", "6", "8", "10"],
+                    answer: 1,
+                    topic: "Algebra"
+                },
+                {
+                    question: "What is the derivative of 3x² + 2x - 5?",
+                    options: ["6x + 2", "3x + 2", "6x - 5", "3x² + 2"],
+                    answer: 0,
+                    topic: "Calculus"
+                }
+            ],
+            english: [
+                {
+                    question: "Choose the word that best completes the sentence: She ___ to the market yesterday.",
+                    options: ["go", "going", "went", "gone"],
+                    answer: 2,
+                    topic: "Verb Tenses"
+                },
+                {
+                    question: "Identify the adverb in the sentence: 'He ran quickly to catch the bus.'",
+                    options: ["He", "ran", "quickly", "bus"],
+                    answer: 2,
+                    topic: "Parts of Speech"
+                }
+            ],
+            biology: [
+                {
+                    question: "Which organelle is known as the powerhouse of the cell?",
+                    options: ["Nucleus", "Mitochondria", "Ribosome", "Chloroplast"],
+                    answer: 1,
+                    topic: "Cell Biology"
+                },
+                {
+                    question: "What is the basic unit of life?",
+                    options: ["Atom", "Cell", "Molecule", "Organ"],
+                    answer: 1,
+                    topic: "Cell Biology"
+                }
+            ],
+            physics: [
+                {
+                    question: "What is the formula for calculating force?",
+                    options: ["F = mv", "F = ma", "F = mg", "F = mgh"],
+                    answer: 1,
+                    topic: "Mechanics"
+                }
+            ]
+        },
+        neco: {
+            mathematics: [
+                {
+                    question: "Factorize: x² - 5x + 6",
+                    options: ["(x-2)(x-3)", "(x-1)(x-6)", "(x+2)(x+3)", "(x+1)(x+6)"],
+                    answer: 0,
+                    topic: "Algebra"
+                }
+            ],
+            english: [
+                {
+                    question: "Which word is synonymous with 'Benevolent'?",
+                    options: ["Kind", "Wealthy", "Powerful", "Intelligent"],
+                    answer: 0,
+                    topic: "Vocabulary"
+                }
+            ],
+            biology: [
+                {
+                    question: "Which of these is not a part of the digestive system?",
+                    options: ["Liver", "Pancreas", "Kidney", "Stomach"],
+                    answer: 2,
+                    topic: "Human Anatomy"
+                }
+            ]
+        },
+        nabteb: {
+            mathematics: [
+                {
+                    question: "Convert 45° to radians",
+                    options: ["π/2", "π/4", "π/6", "π/8"],
+                    answer: 1,
+                    topic: "Trigonometry"
+                }
+            ],
+            biology: [
+                {
+                    question: "Which of these is not a class of food?",
+                    options: ["Carbohydrates", "Proteins", "Vitamins", "Chlorophyll"],
+                    answer: 3,
+                    topic: "Nutrition"
+                }
+            ],
+            chemistry: [
+                {
+                    question: "What is the chemical symbol for gold?",
+                    options: ["Au", "Ag", "Fe", "Gd"],
+                    answer: 0,
+                    topic: "Elements"
+                }
+            ]
+        }
+    };
+
+    // DOM elements
+    const examTypeSelect = document.getElementById('examType');
+    const subjectSelect = document.getElementById('subject');
+    const questionCountInput = document.getElementById('questionCount');
+    const startPracticeBtn = document.getElementById('startPractice');
+    const selectionForm = document.getElementById('selectionForm');
+    const examContainer = document.getElementById('examContainer');
+    const examTitle = document.getElementById('examTitle');
+    const subjectInfo = document.getElementById('subjectInfo');
+    const timerDisplay = document.getElementById('timer');
+    const progressBar = document.getElementById('progressBar');
+    const questionContainer = document.getElementById('questionContainer');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultContainer = document.getElementById('resultContainer');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const scoreBg = document.getElementById('scoreBg');
+    const scoreMessage = document.getElementById('scoreMessage');
+    const generalFeedback = document.getElementById('generalFeedback');
+    const improvementFeedback = document.getElementById('improvementFeedback');
+    const recommendationFeedback = document.getElementById('recommendationFeedback');
+    const answersReview = document.getElementById('answersReview');
+    const newPracticeBtn = document.getElementById('newPracticeBtn');
+    const reviewAnswersBtn = document.getElementById('reviewAnswersBtn');
+
+    // Global variables
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let timerInterval;
+    let timeLeft = 0;
+    let currentExamType = '';
+    let currentSubject = '';
+    let questionCount = 20;
+    let totalTime = 0;
+
+    // Event listeners
+    examTypeSelect.addEventListener('change', function() {
+        const selectedExamType = this.value;
+        subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+        
+        if (selectedExamType && questionBank[selectedExamType]) {
+            // Get subjects for the selected exam type
+            const subjects = Object.keys(questionBank[selectedExamType]);
+            
+            // Populate subject dropdown
+            subjects.forEach(subject => {
+                const option = document.createElement('option');
+                option.value = subject;
+                // Format the subject name for display (replace underscores with spaces and capitalize)
+                const displayName = subject.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                option.textContent = displayName;
+                subjectSelect.appendChild(option);
+            });
+        }
+    });
+
+    questionCountInput.addEventListener('change', function() {
+        if (this.value < 5) this.value = 5;
+        if (this.value > 50) this.value = 50;
+    });
+
+    startPracticeBtn.addEventListener('click', startPracticeSession);
+    prevBtn.addEventListener('click', showPreviousQuestion);
+    nextBtn.addEventListener('click', showNextQuestion);
+    submitBtn.addEventListener('click', submitPractice);
+    newPracticeBtn.addEventListener('click', resetPractice);
+    reviewAnswersBtn.addEventListener('click', () => {
+        alert('Study materials would be displayed here in a full implementation.');
+    });
+
+    // Main functions
+    function startPracticeSession() {
+        currentExamType = examTypeSelect.value;
+        currentSubject = subjectSelect.value;
+        questionCount = parseInt(questionCountInput.value);
+        
+        if (!currentExamType || !currentSubject) {
+            alert('Please select both exam type and subject');
+            return;
+        }
+        
+        if (isNaN(questionCount) || questionCount < 5 || questionCount > 50) {
+            alert('Please enter a valid number of questions between 5 and 50');
+            return;
+        }
+        
+        // Get questions for the selected subject
+        const allQuestions = questionBank[currentExamType][currentSubject];
+        
+        if (!allQuestions || allQuestions.length === 0) {
+            alert('No questions available for this subject yet. Please try another subject.');
+            return;
+        }
+        
+        // Shuffle questions and select the requested number
+        currentQuestions = shuffleArray([...allQuestions]).slice(0, Math.min(questionCount, allQuestions.length));
+        
+        // Shuffle options for each question while maintaining correct answer
+        currentQuestions.forEach(question => {
+            const correctAnswer = question.options[question.answer];
+            question.options = shuffleArray([...question.options]);
+            question.answer = question.options.indexOf(correctAnswer);
+        });
+        
+        userAnswers = new Array(currentQuestions.length).fill(null);
+        
+        // Format subject name for display
+        const formattedSubject = currentSubject.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        
+        // Set exam title and info
+        examTitle.textContent = `${formattedSubject} Practice`;
+        subjectInfo.textContent = `${currentExamType.toUpperCase()} Mode | ${currentQuestions.length} Questions`;
+        
+        // Calculate total time (45 seconds per question)
+        totalTime = currentQuestions.length * 45;
+        timeLeft = totalTime;
+        
+        // Hide selection form and show exam container
+        selectionForm.style.display = 'none';
+        examContainer.style.display = 'block';
+        
+        // Start with first question
+        currentQuestionIndex = 0;
+        displayQuestion();
+        updateProgressBar();
+        
+        // Start timer
+        startTimer();
+    }
+
+    function displayQuestion() {
+        // Update navigation buttons
+        prevBtn.disabled = currentQuestionIndex === 0;
+        nextBtn.disabled = currentQuestionIndex === currentQuestions.length - 1;
+        
+        // Clear previous question
+        questionContainer.innerHTML = '';
+        
+        // Display question number
+        const questionNumber = document.createElement('div');
+        questionNumber.className = 'question-number';
+        questionNumber.innerHTML = `<span>${currentQuestionIndex + 1}</span> Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+        questionContainer.appendChild(questionNumber);
+        
+        // Display current question
+        const question = currentQuestions[currentQuestionIndex];
+        const questionText = document.createElement('div');
+        questionText.className = 'question-text';
+        questionText.textContent = question.question;
+        questionContainer.appendChild(questionText);
+        
+        // Display options
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'options-container';
+        
+        question.options.forEach((option, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'option';
+            
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = 'answer';
+            input.id = `option-${index}`;
+            input.value = index;
+            input.checked = userAnswers[currentQuestionIndex] === index;
+            
+            input.addEventListener('change', () => {
+                userAnswers[currentQuestionIndex] = index;
+            });
+            
+            const label = document.createElement('label');
+            label.htmlFor = `option-${index}`;
+            label.textContent = option;
+            
+            optionDiv.appendChild(input);
+            optionDiv.appendChild(label);
+            optionsContainer.appendChild(optionDiv);
+        });
+        
+        questionContainer.appendChild(optionsContainer);
+    }
+
+    function showPreviousQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            displayQuestion();
+            updateProgressBar();
+        }
+    }
+
+    function showNextQuestion() {
+        if (currentQuestionIndex < currentQuestions.length - 1) {
+            currentQuestionIndex++;
+            displayQuestion();
+            updateProgressBar();
+        }
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    function startTimer() {
+        updateTimerDisplay();
+        
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            
+            if (timeLeft <= Math.floor(totalTime * 0.2)) {
+                timerDisplay.classList.add('warning');
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitPractice();
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        timerDisplay.querySelector('span').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function submitPractice() {
+        clearInterval(timerInterval);
+        
+        // Calculate score and topic performance
+        let correct = 0;
+        const topicPerformance = {};
+        
+        userAnswers.forEach((answer, index) => {
+            const question = currentQuestions[index];
+            const topic = question.topic || "General";
+            
+            if (!topicPerformance[topic]) {
+                topicPerformance[topic] = { correct: 0, total: 0 };
+            }
+            
+            topicPerformance[topic].total++;
+            
+            if (answer === question.answer) {
+                correct++;
+                topicPerformance[topic].correct++;
+            }
+        });
+        
+        const score = Math.round((correct / currentQuestions.length) * 100);
+        
+        // Show results
+        examContainer.style.display = 'none';
+        resultContainer.style.display = 'block';
+        
+        scoreDisplay.textContent = `${score}%`;
+        scoreBg.textContent = score >= 70 ? "PASS" : score >= 50 ? "AVERAGE" : "FAIL";
+        
+        // Create confetti for good scores
+        if (score >= 80) {
+            createConfetti();
+        }
+        
+        // Provide feedback
+        provideFeedback(score, topicPerformance);
+        
+        // Show answer review
+        displayAnswerReview();
+    }
+
+    function provideFeedback(score, topicPerformance) {
+        // General feedback based on score
+        if (score >= 90) {
+            generalFeedback.textContent = 'Exceptional performance! You have demonstrated mastery of the material.';
+            scoreMessage.textContent = 'Outstanding! Keep up the excellent work.';
+            scoreMessage.style.color = 'var(--success)';
+        } else if (score >= 80) {
+            generalFeedback.textContent = 'Excellent work! You have a strong understanding of the concepts.';
+            scoreMessage.textContent = 'Great job! You\'re well on your way to success.';
+            scoreMessage.style.color = 'var(--success)';
+        } else if (score >= 70) {
+            generalFeedback.textContent = 'Good performance! You understand most concepts but could use some refinement.';
+            scoreMessage.textContent = 'Good effort! With a bit more practice, you\'ll excel.';
+            scoreMessage.style.color = '#3b82f6';
+        } else if (score >= 60) {
+            generalFeedback.textContent = 'Satisfactory performance. You have a basic understanding but need more practice.';
+            scoreMessage.textContent = 'Not bad! Keep studying to improve your results.';
+            scoreMessage.style.color = 'var(--warning)';
+        } else if (score >= 50) {
+            generalFeedback.textContent = 'Below average performance. You need to review the material more thoroughly.';
+            scoreMessage.textContent = 'You need more practice. Review the material and try again.';
+            scoreMessage.style.color = 'var(--warning)';
+        } else {
+            generalFeedback.textContent = 'Poor performance. Significant study is needed to master this material.';
+            scoreMessage.textContent = 'Focus on understanding the basics before moving forward.';
+            scoreMessage.style.color = 'var(--danger)';
+        }
+        
+        // Identify weak areas
+        const weakTopics = [];
+        for (const topic in topicPerformance) {
+            const percentage = Math.round((topicPerformance[topic].correct / topicPerformance[topic].total) * 100);
+            if (percentage < 60) {
+                weakTopics.push(`${topic} (${percentage}%)`);
+            }
+        }
+        
+        // Improvement feedback
+        if (weakTopics.length > 0) {
+            improvementFeedback.textContent = `You should focus on improving your understanding of: ${weakTopics.join(', ')}. These areas showed lower performance in your practice.`;
+        } else {
+            improvementFeedback.textContent = 'Your performance was balanced across all topics. Keep up the good work!';
+        }
+        
+        // Recommendations
+        if (score >= 80) {
+            recommendationFeedback.textContent = 'Consider challenging yourself with more difficult questions or exploring advanced topics. You\'re ready for the next level!';
+        } else if (score >= 60) {
+            recommendationFeedback.textContent = 'Review the study materials, focus on your weak areas, and try another practice session. Consistent practice will help you improve.';
+        } else {
+            recommendationFeedback.textContent = 'Start with the basic concepts, review the study materials thoroughly, and consider seeking help from your instructor. Don\'t get discouraged - everyone starts somewhere!';
+        }
+    }
+
+    function displayAnswerReview() {
+        answersReview.innerHTML = '<h3 class="feedback-title"><i class="fas fa-list-check"></i> Review Your Answers</h3>';
+        
+        currentQuestions.forEach((question, index) => {
+            const reviewItem = document.createElement('div');
+            const userAnswer = userAnswers[index];
+            const isCorrect = userAnswer === question.answer;
+            
+            reviewItem.className = `review-item ${isCorrect ? 'correct-answer' : 'incorrect-answer'}`;
+            
+            const questionText = document.createElement('div');
+            questionText.className = 'review-question';
+            questionText.innerHTML = `<i class="fas fa-question-circle"></i> Question ${index + 1}: ${question.question}`;
+            reviewItem.appendChild(questionText);
+            
+            // Display all options with marking
+            question.options.forEach((option, optIndex) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'review-answer';
+                
+                if (optIndex === question.answer) {
+                    optionDiv.innerHTML = `<span class="correct"><i class="fas fa-check-circle"></i> Correct: ${option}</span>`;
+                } else if (optIndex === userAnswer) {
+                    optionDiv.innerHTML = `<span class="incorrect"><i class="fas fa-times-circle"></i> Your answer: ${option}</span>`;
+                } else {
+                    optionDiv.textContent = option;
+                }
+                
+                reviewItem.appendChild(optionDiv);
+            });
+            
+            // Add topic information
+            if (question.topic) {
+                const topicDiv = document.createElement('div');
+                topicDiv.className = 'topic-tag';
+                topicDiv.textContent = `Topic: ${question.topic}`;
+                reviewItem.appendChild(topicDiv);
+            }
+            
+            answersReview.appendChild(reviewItem);
+        });
+    }
+
+    function resetPractice() {
+        resultContainer.style.display = 'none';
+        selectionForm.style.display = 'block';
+        examTypeSelect.value = '';
+        subjectSelect.innerHTML = '<option value="">-- Select Subject --</option>';
+        questionCountInput.value = '20';
+        timerDisplay.classList.remove('warning');
+    }
+
+    function createConfetti() {
+        const colors = ['#4a1d96', '#7e22ce', '#f97316', '#22c55e', '#eab308', '#3b82f6'];
+        
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = `${Math.random() * 100}%`;
+            confetti.style.width = `${5 + Math.random() * 5}px`;
+            confetti.style.height = `${5 + Math.random() * 5}px`;
+            confetti.style.animationDelay = `${Math.random() * 2}s`;
+            document.body.appendChild(confetti);
+            
+            // Remove confetti after animation completes
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+</script>
+</body>
+</html>
