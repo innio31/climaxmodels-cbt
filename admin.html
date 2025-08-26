@@ -324,10 +324,54 @@
                     <select class="form-select" id="filterSubject">
                         <option value="">All Subjects</option>
                         <option value="mathematics">Mathematics</option>
-                        <option value="english">English</option>
-                        <option value="physics">Physics</option>
-                        <option value="chemistry">Chemistry</option>
-                        <option value="biology">Biology</option>
+<option value="english">English Language</option>
+<option value="physics">Physics</option>
+<option value="chemistry">Chemistry</option>
+<option value="biology">Biology</option>
+<option value="agricultural-science">Agricultural Science</option>
+<option value="further-mathematics">Further Mathematics</option>
+<option value="basic-science">Basic Science</option>
+<option value="basic-technology">Basic Technology</option>
+<option value="civic-education">Civic Education</option>
+<option value="economics">Economics</option>
+<option value="commerce">Commerce</option>
+<option value="accounting">Financial Accounting</option>
+<option value="government">Government</option>
+<option value="geography">Geography</option>
+<option value="history">History</option>
+<option value="literature-in-english">Literature in English</option>
+<option value="christian-religious-studies">Christian Religious Studies (CRS)</option>
+<option value="islamic-studies">Islamic Studies</option>
+<option value="social-studies">Social Studies</option>
+<option value="computer-science">Computer Science / ICT</option>
+<option value="home-economics">Home Economics</option>
+<option value="physical-and-health-education">Physical & Health Education (PHE)</option>
+<option value="technical-drawing">Technical Drawing</option>
+<option value="fine-arts">Fine Arts / Visual Arts</option>
+<option value="music">Music</option>
+<option value="french">French</option>
+<option value="arabic">Arabic</option>
+<option value="yoruba">Yoruba</option>
+<option value="igbo">Igbo</option>
+<option value="hausa">Hausa</option>
+<option value="business-studies">Business Studies</option>
+<option value="food-and-nutrition">Food & Nutrition</option>
+<option value="woodwork">Woodwork</option>
+<option value="metalwork">Metalwork</option>
+<option value="building-construction">Building Construction</option>
+<option value="auto-mechanics">Auto Mechanics</option>
+<option value="electronics">Electronics</option>
+<option value="insurance">Insurance</option>
+<option value="marketing">Marketing</option>
+<option value="tourism">Tourism</option>
+<option value="general-science">General Science</option>
+<option value="entrepreneurship">Entrepreneurship</option>
+<option value="cultural-and-creative-arts">Cultural & Creative Arts</option>
+<option value="library-studies">Library Studies</option>
+<option value="data-processing">Data Processing</option>
+<option value="office-practice">Office Practice</option>
+<option value="book-keeping">Book Keeping</option>
+
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -465,6 +509,15 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
+        // ===== Password Protection =====
+const PASSWORD = "climax123"; // change as needed
+(function() {
+let entered = prompt("Enter Password:");
+if (entered !== PASSWORD) {
+alert("Access Denied");
+window.location.reload();
+}
+})();
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCLARJE_z6pdpEoMMt2f9JcSvZAmxOwwMM",
@@ -1994,3 +2047,4 @@ function calculateGrade(score) {
 </script>
 </body>
 </html> 
+
