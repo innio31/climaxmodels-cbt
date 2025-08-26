@@ -98,92 +98,34 @@
             background-color: #f8f9fa;
             font-size: 0.9rem;
         }
-        .sidebar {
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding-top: 60px;
-            width: 250px;
-            z-index: 1000;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .nav-link {
-            color: #333;
-            padding: 10px 15px;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
-        .nav-link:hover, .nav-link.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .sidebar-heading {
-            padding: 10px 15px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #6c757d;
+        @media (max-width: 768px) {
+            .school-logo {
+                width: 60px;
+                height: 60px;
+                font-size: 0.8rem;
+                margin-right: 10px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            .card-header {
+                padding: 10px 15px;
+            }
+            .table-responsive {
+                font-size: 0.85rem;
+            }
+            .btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.875rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <div class="sidebar d-none d-md-block">
-        <div class="sidebar-heading">Main Navigation</div>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-users me-2"></i> Students
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-book me-2"></i> Subjects
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-clipboard-list me-2"></i> Exams
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-chart-bar me-2"></i> Reports
-                </a>
-            </li>
-        </ul>
-        
-        <div class="sidebar-heading mt-4">Administration</div>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-cog me-2"></i> Settings
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-user-shield me-2"></i> Users
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-sign-out-alt me-2"></i> Logout
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="main-content">
+    <div class="container-fluid py-4">
         <!-- School Header -->
         <div class="school-header">
             <div class="row align-items-center">
@@ -193,7 +135,7 @@
                     </div>
                     <div>
                         <h1 class="mb-0">The Climax Model Schools, Ota</h1>
-                        <p class="mb-0">Excellence in Education Since 1995</p>
+                        <p class="mb-0">Stand Out and Lead</p>
                     </div>
                 </div>
                 <div class="col-md-4 text-md-end">
@@ -204,73 +146,7 @@
             </div>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2><i class="fas fa-graduation-cap me-2"></i> Exam Results Dashboard</h2>
-                    <span class="badge bg-primary">Admin Portal</span>
-                </div>
-                <p class="text-muted">View and analyze student exam results</p>
-            </div>
-        </div>
-
-        <div class="filter-container">
-            <div class="row g-3">
-                <div class="col-md-3">
-                    <label class="form-label">Class</label>
-                    <select class="form-select" id="filterClass">
-                        <option value="">All Classes</option>
-                        <option value="jss1">JSS 1</option>
-                        <option value="jss2">JSS 2</option>
-                        <option value="jss3">JSS 3</option>
-                        <option value="sss1">SSS 1</option>
-                        <option value="sss2">SSS 2</option>
-                        <option value="sss3">SSS 3</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Subject</label>
-                    <select class="form-select" id="filterSubject">
-                        <option value="">All Subjects</option>
-                        <option value="mathematics">Mathematics</option>
-                        <option value="english">English</option>
-                        <option value="physics">Physics</option>
-                        <option value="chemistry">Chemistry</option>
-                        <option value="biology">Biology</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Exam Type</label>
-                    <select class="form-select" id="filterExamType">
-                        <option value="">All Types</option>
-                        <option value="ca">Continuous Assessment</option>
-                        <option value="midterm">Midterm Exam</option>
-                        <option value="exam">End of Term Exam</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Term</label>
-                    <select class="form-select" id="filterTerm">
-                        <option value="">All Terms</option>
-                        <option value="1st">1st Term</option>
-                        <option value="2nd">2nd Term</option>
-                        <option value="3rd">3rd Term</option>
-                        <option value="summer">Summer Term</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <div class="d-flex justify-content-end gap-2">
-                        <button id="applyFilters" class="btn btn-primary">
-                            <i class="fas fa-filter me-2"></i>Apply Filters
-                        </button>
-                        <button id="resetFilters" class="btn btn-outline-secondary">
-                            <i class="fas fa-undo me-2"></i>Reset
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-     
+        <!-- Exam Portal Management -->
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card">
@@ -374,15 +250,16 @@
                                     <label class="form-label">Session</label>
                                     <select class="form-select" id="reportSession">
                                         <option value="">Select Session</option>
+                                        <option value="2022_2023">2022/2023</option>
+                                        <option value="2023_2024">2023/2024</option>
                                         <option value="2024_2025">2024/2025</option>
                                         <option value="2025_2026">2025/2026</option>
-                                        <option value="2026_2027">2026/2027</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="row mt-3">
+                        <div class="row mt-3" id="weightInputs">
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="caWeight" class="form-label">CA Weight (%)</label>
@@ -427,7 +304,66 @@
             </div>
         </div>
 
-        <div class="row">
+        <!-- Filter Section -->
+        <div class="filter-container mt-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Class</label>
+                    <select class="form-select" id="filterClass">
+                        <option value="">All Classes</option>
+                        <option value="jss1">JSS 1</option>
+                        <option value="jss2">JSS 2</option>
+                        <option value="jss3">JSS 3</option>
+                        <option value="sss1">SSS 1</option>
+                        <option value="sss2">SSS 2</option>
+                        <option value="sss3">SSS 3</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Subject</label>
+                    <select class="form-select" id="filterSubject">
+                        <option value="">All Subjects</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="english">English</option>
+                        <option value="physics">Physics</option>
+                        <option value="chemistry">Chemistry</option>
+                        <option value="biology">Biology</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Exam Type</label>
+                    <select class="form-select" id="filterExamType">
+                        <option value="">All Types</option>
+                        <option value="ca">Continuous Assessment</option>
+                        <option value="midterm">Midterm Exam</option>
+                        <option value="exam">End of Term Exam</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Term</label>
+                    <select class="form-select" id="filterTerm">
+                        <option value="">All Terms</option>
+                        <option value="1st">1st Term</option>
+                        <option value="2nd">2nd Term</option>
+                        <option value="3rd">3rd Term</option>
+                        <option value="summer">Summer Term</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <div class="d-flex justify-content-end gap-2">
+                        <button id="applyFilters" class="btn btn-primary">
+                            <i class="fas fa-filter me-2"></i>Apply Filters
+                        </button>
+                        <button id="resetFilters" class="btn btn-outline-secondary">
+                            <i class="fas fa-undo me-2"></i>Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Results -->
+        <div class="row mt-4">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -529,7 +465,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        // Firebase Configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCLARJE_z6pdpEoMMt2f9JcSvZAmxOwwMM",
@@ -550,7 +485,7 @@ const firebaseConfig = {
         let allResults = [];
         let filteredResults = [];
         let currentPage = 1;
-        const resultsPerPage = 15;
+        const resultsPerPage = 10;
         let performanceChart, scoreChart, trendsChart;
         let examSettings = {
             isExamOpen: false,
@@ -575,6 +510,8 @@ const firebaseConfig = {
         const saveExamSettingsBtn = document.getElementById('saveExamSettings');
         const previewReportBtn = document.getElementById('previewReport');
         const generatePdfBtn = document.getElementById('generatePdf');
+        const reportTerm = document.getElementById('reportTerm');
+        const weightInputs = document.getElementById('weightInputs');
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -589,6 +526,21 @@ const firebaseConfig = {
             saveExamSettingsBtn.addEventListener('click', saveExamSettings);
             previewReportBtn.addEventListener('click', previewTermReport);
             generatePdfBtn.addEventListener('click', generateTermReportPdf);
+            
+            // Show/hide weight inputs based on term selection
+            reportTerm.addEventListener('change', function() {
+                if (this.value === 'summer') {
+                    weightInputs.classList.add('d-none');
+                    document.getElementById('caWeight').value = '0';
+                    document.getElementById('midtermWeight').value = '0';
+                    document.getElementById('examWeight').value = '100';
+                } else {
+                    weightInputs.classList.remove('d-none');
+                    document.getElementById('caWeight').value = '10';
+                    document.getElementById('midtermWeight').value = '20';
+                    document.getElementById('examWeight').value = '70';
+                }
+            });
         });
 
         // ==================== RESULTS MANAGEMENT ====================
@@ -600,6 +552,7 @@ const firebaseConfig = {
             resultsRef.on('value', (snapshot) => {
                 allResults = [];
                 let totalScore = 0;
+                let resultCount = 0;
                 
                 snapshot.forEach(childSnapshot => {
                     const result = childSnapshot.val();
@@ -609,10 +562,26 @@ const firebaseConfig = {
                         result.timestamp = result.submittedAt || new Date().toISOString();
                     }
                     
+                    // Calculate total score if theory is graded
+                    if (result.theoryGraded && result.theoryScore !== undefined) {
+                        if (result.examType === 'ca') {
+                            result.totalScore = ((result.objectiveScore || 0) * 0.5) + (result.theoryScore * 0.5);
+                        } else if (result.examType === 'midterm') {
+                            result.totalScore = ((result.objectiveScore || 0) * 0.5) + (result.theoryScore * 0.5);
+                        } else if (result.examType === 'exam') {
+                            result.totalScore = ((result.objectiveScore || 0) * 0.3) + (result.theoryScore * 0.7);
+                        } else {
+                            result.totalScore = result.objectiveScore || 0;
+                        }
+                    } else {
+                        result.totalScore = result.objectiveScore || 0;
+                    }
+                    
                     allResults.push(result);
                     
-                    if (result.objectiveScore) {
-                        totalScore += result.objectiveScore;
+                    if (result.totalScore) {
+                        totalScore += result.totalScore;
+                        resultCount++;
                     }
                 });
                 
@@ -621,7 +590,7 @@ const firebaseConfig = {
                 updateResultsTable();
                 updateCharts();
                 
-                const avg = allResults.length > 0 ? Math.round(totalScore / allResults.length) : 0;
+                const avg = resultCount > 0 ? Math.round(totalScore / resultCount) : 0;
                 averageScore.textContent = avg;
                 totalResults.textContent = allResults.length;
             }, (error) => {
@@ -662,7 +631,7 @@ const firebaseConfig = {
                     const submittedDate = formatDate(result.timestamp);
                     
                     // Get score class
-                    const scoreClass = getScoreClass(result.objectiveScore);
+                    const scoreClass = getScoreClass(result.totalScore);
                     
                     row.innerHTML = `
                         <td>${result.name || 'N/A'}</td>
@@ -671,7 +640,7 @@ const firebaseConfig = {
                         <td>${getExamTypeDisplay(result.examType)}</td>
                         <td>${result.term ? `${result.term} Term` : ''} ${result.session || ''}</td>
                         <td class="${scoreClass}">
-                            ${result.objectiveScore || result.objectiveScore === 0 ? result.objectiveScore + '%' : 'N/A'}
+                            ${result.totalScore || result.totalScore === 0 ? Math.round(result.totalScore) + '%' : 'N/A'}
                         </td>
                         <td>
                             ${result.theoryGraded ? 
@@ -701,201 +670,378 @@ const firebaseConfig = {
         }
 
         // View detailed result
-        function viewResultDetails(resultId) {
-            const result = allResults.find(r => r.id === resultId);
-            if (!result) return;
-            
-            const modal = new bootstrap.Modal(document.getElementById('resultModal'));
-            const detailsContainer = document.getElementById('resultDetails');
-            
-            // Store the current result ID in the modal for later reference
-            document.getElementById('resultModal').dataset.currentResultId = resultId;
-            
-            // Format the details HTML
-            detailsContainer.innerHTML = `
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <h5>Student Information</h5>
-                        <p><strong>Name:</strong> ${result.name || 'N/A'}</p>
-                        <p><strong>Class:</strong> ${result.class ? result.class.toUpperCase() : 'N/A'}</p>
-                        <p><strong>Student ID:</strong> ${result.studentId || 'N/A'}</p>
+function viewResultDetails(resultId) {
+    const result = allResults.find(r => r.id === resultId);
+    if (!result) return;
+    
+    const modal = new bootstrap.Modal(document.getElementById('resultModal'));
+    const detailsContainer = document.getElementById('resultDetails');
+    
+    // Store the current result ID in the modal for later reference
+    document.getElementById('resultModal').dataset.currentResultId = resultId;
+    
+    // Calculate score breakdown
+    let objectiveContribution = 0;
+    let theoryContribution = 0;
+    
+    if (result.examType === 'ca') {
+        objectiveContribution = (result.objectiveScore || 0) * 0.5;
+        theoryContribution = result.theoryGraded ? (result.theoryScore * 0.5) : 0;
+    } else if (result.examType === 'midterm') {
+        objectiveContribution = (result.objectiveScore || 0) * 0.5;
+        theoryContribution = result.theoryGraded ? (result.theoryScore * 0.5) : 0;
+    } else if (result.examType === 'exam') {
+        objectiveContribution = (result.objectiveScore || 0) * 0.3;
+        theoryContribution = result.theoryGraded ? (result.theoryScore * 0.7) : 0;
+    } else {
+        objectiveContribution = result.objectiveScore || 0;
+    }
+    
+    // Format the details HTML
+    detailsContainer.innerHTML = `
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h5>Student Information</h5>
+                <p><strong>Name:</strong> ${result.name || 'N/A'}</p>
+                <p><strong>Class:</strong> ${result.class ? result.class.toUpperCase() : 'N/A'}</p>
+                <p><strong>Student ID:</strong> ${result.studentId || 'N/A'}</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Exam Information</h5>
+                <p><strong>Subject:</strong> ${result.subject ? capitalizeFirstLetter(result.subject) : 'N/A'}</p>
+                <p><strong>Exam Type:</strong> ${getExamTypeDisplay(result.examType)}</p>
+                <p><strong>Term/Session:</strong> ${result.term ? `${result.term} Term` : ''} ${result.session || ''}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header bg-primary text-white">
+                        Objective Section
                     </div>
-                    <div class="col-md-6">
-                        <h5>Exam Information</h5>
-                        <p><strong>Subject:</strong> ${result.subject ? capitalizeFirstLetter(result.subject) : 'N/A'}</p>
-                        <p><strong>Exam Type:</strong> ${getExamTypeDisplay(result.examType)}</p>
-                        <p><strong>Term/Session:</strong> ${result.term ? `${result.term} Term` : ''} ${result.session || ''}</p>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-header bg-primary text-white">
-                                Objective Section
-                            </div>
-                            <div class="card-body">
-                                <h3 class="${getScoreClass(result.objectiveScore)}">
-                                    ${result.objectiveScore || result.objectiveScore === 0 ? result.objectiveScore + '%' : 'N/A'}
-                                </h3>
-                                <p class="card-text">Automatically graded</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-header ${result.theorySubmitted ? (result.theoryGraded ? 'bg-success text-white' : 'bg-warning text-dark') : 'bg-secondary text-white'}">
-                                Theory Section
-                            </div>
-                            <div class="card-body">
-                                ${result.theoryGraded ? `
-                                    <h3 class="${getScoreClass(result.theoryScore)}">
-                                        ${result.theoryScore}%
-                                    </h3>
-                                    <p class="card-text">Graded by: ${result.theoryGradedBy || 'Teacher'}</p>
-                                    <p class="card-text">Graded on: ${formatDate(result.theoryGradedAt)}</p>
-                                ` : result.theorySubmitted ? `
-                                    <div class="theory-grading-form">
-                                        <h5>Grade Theory Section</h5>
-                                        <div class="mb-3">
-                                            <label for="theoryScoreInput" class="form-label">Theory Score (0-100)</label>
-                                            <input type="number" class="form-control" id="theoryScoreInput" min="0" max="100" placeholder="Enter score">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="theoryGraderName" class="form-label">Grader Name</label>
-                                            <input type="text" class="form-control" id="theoryGraderName" placeholder="Your name">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="theoryComments" class="form-label">Comments (Optional)</label>
-                                            <textarea class="form-control" id="theoryComments" rows="2" placeholder="Any comments about this theory submission"></textarea>
-                                        </div>
-                                        <button class="btn btn-success" id="saveTheoryScore">Save Theory Score</button>
-                                    </div>
-                                ` : `
-                                    <p class="card-text">Not submitted</p>
-                                `}
-                            </div>
-                        </div>
+                    <div class="card-body">
+                        <h3 class="${getScoreClass(result.objectiveScore)}">
+                            ${result.objectiveScore || result.objectiveScore === 0 ? result.objectiveScore + '%' : 'N/A'}
+                        </h3>
+                        <p class="card-text">Contribution: ${Math.round(objectiveContribution)}%</p>
+                        <p class="card-text">Automatically graded</p>
                     </div>
                 </div>
-                
-                ${result.answers ? `
-                <div class="mt-4">
-                    <h5>Objective Answers</h5>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Question</th>
-                                    <th>Selected Answer</th>
-                                    <th>Correct</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${result.answers.map((answer, index) => `
-                                    <tr>
-                                        <td>Question ${index + 1}</td>
-                                        <td>${answer !== null ? `Option ${String.fromCharCode(65 + answer)}` : 'Not answered'}</td>
-                                        <td>${result.correctAnswers && result.correctAnswers[index] !== undefined ? 
-                                            (answer === result.correctAnswers[index] ? 
-                                                '<span class="text-success"><i class="fas fa-check"></i></span>' : 
-                                                '<span class="text-danger"><i class="fas fa-times"></i></span>') : 
-                                            'N/A'}
-                                        </td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-header ${result.theorySubmitted ? (result.theoryGraded ? 'bg-success text-white' : 'bg-warning text-dark') : 'bg-secondary text-white'}">
+                        Theory Section
                     </div>
-                </div>
-                ` : ''}
-                
-                ${result.theoryAnswers ? `
-                <div class="mt-4">
-                    <h5>Theory Answers</h5>
-                    <div class="theory-answers">
-                        ${result.theoryAnswers.map((answer, index) => `
-                            <div class="card mb-2">
-                                <div class="card-header py-1">
-                                    <strong>Question ${index + 1}</strong>
+                    <div class="card-body">
+                        ${result.theoryGraded ? `
+                            <h3 class="${getScoreClass(result.theoryScore)}">
+                                ${result.theoryScore}%
+                            </h3>
+                            <p class="card-text">Contribution: ${Math.round(theoryContribution)}%</p>
+                            <p class="card-text">Graded by: ${result.theoryGradedBy || 'Teacher'}</p>
+                            <p class="card-text">Graded on: ${formatDate(result.theoryGradedAt)}</p>
+                            <button class="btn btn-sm btn-warning mt-2" id="editTheoryScore">
+                                <i class="fas fa-edit me-1"></i>Edit Score
+                            </button>
+                        ` : result.theorySubmitted ? `
+                            <div class="theory-grading-form">
+                                <h5>Grade Theory Section</h5>
+                                <div class="mb-3">
+                                    <label for="theoryScoreInput" class="form-label">Theory Score (0-100)</label>
+                                    <input type="number" class="form-control" id="theoryScoreInput" min="0" max="100" placeholder="Enter score">
                                 </div>
-                                <div class="card-body py-2">
-                                    <p class="mb-0">${answer || 'No answer provided'}</p>
+                                <div class="mb-3">
+                                    <label for="theoryGraderName" class="form-label">Grader Name</label>
+                                    <input type="text" class="form-control" id="theoryGraderName" placeholder="Your name">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="theoryComments" class="form-label">Comments (Optional)</label>
+                                    <textarea class="form-control" id="theoryComments" rows="2" placeholder="Any comments about this theory submission"></textarea>
+                                </div>
+                                <button class="btn btn-success" id="saveTheoryScore">Save Theory Score</button>
                             </div>
+                        ` : `
+                            <p class="card-text">Not submitted</p>
+                        `}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+                        <h4>Total Score: <span class="${getScoreClass(result.totalScore)}">${Math.round(result.totalScore)}%</span></h4>
+                        <p class="mb-0">Objective: ${Math.round(objectiveContribution)}% + Theory: ${Math.round(theoryContribution)}%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        ${result.answers ? `
+        <div class="mt-4">
+            <h5>Objective Answers</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Selected Answer</th>
+                            <th>Correct</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${result.answers.map((answer, index) => `
+                            <tr>
+                                <td>Question ${index + 1}</td>
+                                <td>${answer !== null ? `Option ${String.fromCharCode(65 + answer)}` : 'Not answered'}</td>
+                                <td>${result.correctAnswers && result.correctAnswers[index] !== undefined ? 
+                                    (answer === result.correctAnswers[index] ? 
+                                        '<span class="text-success"><i class="fas fa-check"></i></span>' : 
+                                        '<span class="text-danger"><i class="fas fa-times"></i></span>') : 
+                                    'N/A'}
+                                </td>
+                            </tr>
                         `).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        ` : ''}
+        
+        ${result.theoryAnswers ? `
+        <div class="mt-4">
+            <h5>Theory Answers</h5>
+            <div class="theory-answers">
+                ${result.theoryAnswers.map((answer, index) => `
+                    <div class="card mb-2">
+                        <div class="card-header py-1">
+                            <strong>Question ${index + 1}</strong>
+                        </div>
+                        <div class="card-body py-2">
+                            <p class="mb-0">${answer || 'No answer provided'}</p>
+                        </div>
                     </div>
-                </div>
-                ` : ''}
-            `;
-            
-            // Add event listener for the Save Theory Score button if it exists
-            setTimeout(() => {
-                const saveBtn = document.getElementById('saveTheoryScore');
-                if (saveBtn) {
-                    saveBtn.addEventListener('click', saveTheoryScore);
-                }
-            }, 100);
-            
-            modal.show();
+                `).join('')}
+            </div>
+        </div>
+        ` : ''}
+    `;
+    
+    // Add event listeners to buttons
+    setTimeout(() => {
+        const saveBtn = document.getElementById('saveTheoryScore');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', saveTheoryScore);
         }
+        
+        const editBtn = document.getElementById('editTheoryScore');
+        if (editBtn) {
+            editBtn.addEventListener('click', showEditTheoryScoreForm);
+        }
+    }, 100);
+    
+    modal.show();
+}
 
-        // Function to save theory score
-        function saveTheoryScore() {
-            const modal = document.getElementById('resultModal');
-            const resultId = modal.dataset.currentResultId;
-            
-            if (!resultId) {
-                showAlert('danger', 'No result selected for theory score update');
-                return;
-            }
-            
-            // Get input values
-            const theoryScoreInput = document.getElementById('theoryScoreInput');
-            const graderNameInput = document.getElementById('theoryGraderName');
-            const commentsInput = document.getElementById('theoryComments');
-            
-            const theoryScore = parseInt(theoryScoreInput.value);
-            const graderName = graderNameInput.value.trim();
-            const comments = commentsInput.value.trim();
-            
-            // Validate inputs
-            if (isNaN(theoryScore) || theoryScore < 0 || theoryScore > 100) {
-                showAlert('danger', 'Please enter a valid theory score between 0 and 100');
-                return;
-            }
-            
-            if (!graderName) {
-                showAlert('danger', 'Please enter your name as the grader');
-                return;
-            }
-            
-            // Update the result in Firebase
-            const resultRef = database.ref('examResults/' + resultId);
-            const updates = {
-                theoryScore: theoryScore,
-                theoryGraded: true,
-                theoryGradedBy: graderName,
-                theoryGradedAt: new Date().toISOString()
-            };
-            
-            // Add comments if provided
-            if (comments) {
-                updates.theoryComments = comments;
-            }
-            
-            resultRef.update(updates)
-            .then(() => {
-                showAlert('success', 'Theory score saved successfully!');
-                // Close the modal and reload results
-                bootstrap.Modal.getInstance(modal).hide();
-                loadResults();
-            })
-            .catch(error => {
-                console.error('Error saving theory score:', error);
-                showAlert('danger', 'Failed to save theory score.');
-            });
-        }
+// Function to save theory score
+function saveTheoryScore() {
+    const modal = document.getElementById('resultModal');
+    const resultId = modal.dataset.currentResultId;
+    
+    if (!resultId) {
+        showAlert('danger', 'No result selected for theory score update');
+        return;
+    }
+    
+    // Get input values
+    const theoryScoreInput = document.getElementById('theoryScoreInput');
+    const graderNameInput = document.getElementById('theoryGraderName');
+    const commentsInput = document.getElementById('theoryComments');
+    
+    const theoryScore = parseInt(theoryScoreInput.value);
+    const graderName = graderNameInput.value.trim();
+    const comments = commentsInput.value.trim();
+    
+    // Validate inputs
+    if (isNaN(theoryScore) || theoryScore < 0 || theoryScore > 100) {
+        showAlert('danger', 'Please enter a valid theory score between 0 and 100');
+        return;
+    }
+    
+    if (!graderName) {
+        showAlert('danger', 'Please enter your name as the grader');
+        return;
+    }
+    
+    // Find the result to update
+    const result = allResults.find(r => r.id === resultId);
+    if (!result) return;
+    
+    // Calculate new total score based on exam type
+    let totalScore = result.objectiveScore || 0;
+    
+    if (result.examType === 'ca') {
+        totalScore = (result.objectiveScore * 0.5) + (theoryScore * 0.5);
+    } else if (result.examType === 'midterm') {
+        totalScore = (result.objectiveScore * 0.5) + (theoryScore * 0.5);
+    } else if (result.examType === 'exam') {
+        totalScore = (result.objectiveScore * 0.3) + (theoryScore * 0.7);
+    }
+    
+    // Update the result in Firebase
+    const resultRef = database.ref('examResults/' + resultId);
+    const updates = {
+        theoryScore: theoryScore,
+        theoryGraded: true,
+        theoryGradedBy: graderName,
+        theoryGradedAt: new Date().toISOString(),
+        totalScore: totalScore
+    };
+    
+    // Add comments if provided
+    if (comments) {
+        updates.theoryComments = comments;
+    }
+    
+    resultRef.update(updates)
+    .then(() => {
+        showAlert('success', 'Theory score saved successfully!');
+        // Close the modal and reload results
+        bootstrap.Modal.getInstance(modal).hide();
+        loadResults();
+    })
+    .catch(error => {
+        console.error('Error saving theory score:', error);
+        showAlert('danger', 'Failed to save theory score.');
+    });
+}
+
+// Function to show edit theory score form
+function showEditTheoryScoreForm() {
+    const modal = document.getElementById('resultModal');
+    const resultId = modal.dataset.currentResultId;
+    
+    if (!resultId) {
+        showAlert('danger', 'No result selected for editing');
+        return;
+    }
+    
+    const result = allResults.find(r => r.id === resultId);
+    if (!result) return;
+    
+    // Replace the theory section with edit form
+    const theoryCard = document.querySelector('.card-header:not(.bg-primary)').closest('.card').querySelector('.card-body');
+    theoryCard.innerHTML = `
+        <div class="theory-grading-form">
+            <h5>Edit Theory Score</h5>
+            <div class="mb-3">
+                <label for="editTheoryScoreInput" class="form-label">Theory Score (0-100)</label>
+                <input type="number" class="form-control" id="editTheoryScoreInput" min="0" max="100" 
+                    value="${result.theoryScore || ''}" placeholder="Enter score">
+            </div>
+            <div class="mb-3">
+                <label for="editTheoryGraderName" class="form-label">Grader Name</label>
+                <input type="text" class="form-control" id="editTheoryGraderName" 
+                    value="${result.theoryGradedBy || ''}" placeholder="Your name">
+            </div>
+            <div class="mb-3">
+                <label for="editTheoryComments" class="form-label">Comments (Optional)</label>
+                <textarea class="form-control" id="editTheoryComments" rows="2" 
+                    placeholder="Any comments about this theory submission">${result.theoryComments || ''}</textarea>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" id="updateTheoryScore">Update Theory Score</button>
+                <button class="btn btn-secondary" id="cancelEditTheoryScore">Cancel</button>
+            </div>
+        </div>
+    `;
+    
+    // Add event listeners
+    setTimeout(() => {
+        document.getElementById('updateTheoryScore').addEventListener('click', updateTheoryScore);
+        document.getElementById('cancelEditTheoryScore').addEventListener('click', () => {
+            viewResultDetails(resultId); // Reload the details to show original view
+        });
+    }, 100);
+}
+
+// Function to update theory score
+function updateTheoryScore() {
+    const modal = document.getElementById('resultModal');
+    const resultId = modal.dataset.currentResultId;
+    
+    if (!resultId) {
+        showAlert('danger', 'No result selected for theory score update');
+        return;
+    }
+    
+    // Get input values
+    const theoryScoreInput = document.getElementById('editTheoryScoreInput');
+    const graderNameInput = document.getElementById('editTheoryGraderName');
+    const commentsInput = document.getElementById('editTheoryComments');
+    
+    const theoryScore = parseInt(theoryScoreInput.value);
+    const graderName = graderNameInput.value.trim();
+    const comments = commentsInput.value.trim();
+    
+    // Validate inputs
+    if (isNaN(theoryScore) || theoryScore < 0 || theoryScore > 100) {
+        showAlert('danger', 'Please enter a valid theory score between 0 and 100');
+        return;
+    }
+    
+    if (!graderName) {
+        showAlert('danger', 'Please enter your name as the grader');
+        return;
+    }
+    
+    // Find the result to update
+    const result = allResults.find(r => r.id === resultId);
+    if (!result) return;
+    
+    // Calculate new total score based on exam type
+    let totalScore = result.objectiveScore || 0;
+    
+    if (result.examType === 'ca') {
+        totalScore = (result.objectiveScore * 0.5) + (theoryScore * 0.5);
+    } else if (result.examType === 'midterm') {
+        totalScore = (result.objectiveScore * 0.5) + (theoryScore * 0.5);
+    } else if (result.examType === 'exam') {
+        totalScore = (result.objectiveScore * 0.3) + (theoryScore * 0.7);
+    }
+    
+    // Update the result in Firebase
+    const resultRef = database.ref('examResults/' + resultId);
+    const updates = {
+        theoryScore: theoryScore,
+        theoryGraded: true,
+        theoryGradedBy: graderName,
+        theoryGradedAt: new Date().toISOString(),
+        totalScore: totalScore
+    };
+    
+    // Add comments if provided
+    if (comments) {
+        updates.theoryComments = comments;
+    }
+    
+    resultRef.update(updates)
+    .then(() => {
+        showAlert('success', 'Theory score updated successfully!');
+        // Close the modal and reload results
+        bootstrap.Modal.getInstance(modal).hide();
+        loadResults();
+    })
+    .catch(error => {
+        console.error('Error updating theory score:', error);
+        showAlert('danger', 'Failed to update theory score.');
+    });
+}
+
 
         // Apply filters to results
         function applyResultsFilters() {
@@ -1044,18 +1190,27 @@ const firebaseConfig = {
             const classVal = document.getElementById('reportClass').value;
             const termVal = document.getElementById('reportTerm').value;
             const sessionVal = document.getElementById('reportSession').value;
-            const caWeight = parseInt(document.getElementById('caWeight').value) || 0;
-            const midtermWeight = parseInt(document.getElementById('midtermWeight').value) || 0;
-            const examWeight = parseInt(document.getElementById('examWeight').value) || 0;
             
             if (!classVal || !termVal || !sessionVal) {
                 showAlert('danger', 'Please select class, term and session');
                 return;
             }
             
-            if (caWeight + midtermWeight + examWeight !== 100) {
-                showAlert('danger', 'Total weights must equal 100%');
-                return;
+            let caWeight, midtermWeight, examWeight;
+            
+            if (termVal === 'summer') {
+                caWeight = 0;
+                midtermWeight = 0;
+                examWeight = 100;
+            } else {
+                caWeight = parseInt(document.getElementById('caWeight').value) || 0;
+                midtermWeight = parseInt(document.getElementById('midtermWeight').value) || 0;
+                examWeight = parseInt(document.getElementById('examWeight').value) || 0;
+                
+                if (caWeight + midtermWeight + examWeight !== 100) {
+                    showAlert('danger', 'Total weights must equal 100%');
+                    return;
+                }
             }
             
             // Calculate term totals
@@ -1096,7 +1251,7 @@ const firebaseConfig = {
                         const studentData = {};
                         
                         filtered.forEach(result => {
-                            if (!result.name || !result.subject || result.objectiveScore === undefined) return;
+                            if (!result.name || !result.subject || result.totalScore === undefined) return;
                             
                             const studentKey = result.name.toLowerCase().trim();
                             const subjectKey = result.subject.toLowerCase().trim();
@@ -1122,11 +1277,11 @@ const firebaseConfig = {
                             
                             // Categorize scores by exam type
                             if (result.examType === 'ca') {
-                                studentData[studentKey].subjects[subjectKey].caScores.push(result.objectiveScore);
+                                studentData[studentKey].subjects[subjectKey].caScores.push(result.totalScore);
                             } else if (result.examType === 'midterm') {
-                                studentData[studentKey].subjects[subjectKey].midtermScores.push(result.objectiveScore);
+                                studentData[studentKey].subjects[subjectKey].midtermScores.push(result.totalScore);
                             } else if (result.examType === 'exam') {
-                                studentData[studentKey].subjects[subjectKey].examScores.push(result.objectiveScore);
+                                studentData[studentKey].subjects[subjectKey].examScores.push(result.totalScore);
                             }
                         });
                         
@@ -1135,37 +1290,37 @@ const firebaseConfig = {
                             const subjects = {};
                             
                             Object.entries(student.subjects).forEach(([subjectKey, subjectData]) => {
-                                // Calculate CA total (sum of all CA scores scaled to 10)
-                                const caSum = subjectData.caScores.length > 0 ? 
-                                    subjectData.caScores.reduce((a, b) => a + b, 0) : 0;
-                                // Scale to 10 (sum of all CA scores / number of CAs * 10)
-                                const caTotal = subjectData.caScores.length > 0 ?
-                                    (caSum / (subjectData.caScores.length * 100)) * 10 : 0;
+                                // Calculate CA average
+                                const caAvg = subjectData.caScores.length > 0 ? 
+                                    subjectData.caScores.reduce((a, b) => a + b, 0) / subjectData.caScores.length : 0;
                                 
-                                // Calculate Midterm total (sum of all Midterm scores scaled to 20)
-                                const midtermSum = subjectData.midtermScores.length > 0 ? 
-                                    subjectData.midtermScores.reduce((a, b) => a + b, 0) : 0;
-                                // Scale to 20 (sum of all Midterm scores / number of Midterms * 20)
-                                const midtermTotal = subjectData.midtermScores.length > 0 ?
-                                    (midtermSum / (subjectData.midtermScores.length * 100)) * 20 : 0;
+                                // Calculate Midterm average
+                                const midtermAvg = subjectData.midtermScores.length > 0 ? 
+                                    subjectData.midtermScores.reduce((a, b) => a + b, 0) / subjectData.midtermScores.length : 0;
                                 
-                                // Calculate Exam total (single exam score scaled to 70)
-                                const examTotal = subjectData.examScores.length > 0 ?
-                                    (subjectData.examScores[0] / 100) * 70 : 0;
+                                // Calculate Exam average
+                                const examAvg = subjectData.examScores.length > 0 ? 
+                                    subjectData.examScores.reduce((a, b) => a + b, 0) / subjectData.examScores.length : 0;
                                 
-                                // Calculate subject total (sum of scaled scores)
-                                const subjectTotal = caTotal + midtermTotal + examTotal;
+                                // Calculate subject total based on weights
+                                let subjectTotal = 0;
+                                
+                                if (termVal === 'summer') {
+                                    // For summer term, only use exam scores
+                                    subjectTotal = examAvg;
+                                } else {
+                                    // For other terms, use weighted average
+                                    subjectTotal = ((caAvg * caWeight) + (midtermAvg * midtermWeight) + (examAvg * examWeight)) / 100;
+                                }
                                 
                                 subjects[subjectKey] = {
                                     name: subjectData.name,
                                     caScores: subjectData.caScores,
-                                    caSum: caSum,
-                                    caTotal: caTotal,
+                                    caAvg: caAvg,
                                     midtermScores: subjectData.midtermScores,
-                                    midtermSum: midtermSum,
-                                    midtermTotal: midtermTotal,
+                                    midtermAvg: midtermAvg,
                                     examScores: subjectData.examScores,
-                                    examTotal: examTotal,
+                                    examAvg: examAvg,
                                     subjectTotal: subjectTotal
                                 };
                             });
@@ -1211,13 +1366,25 @@ const firebaseConfig = {
             // Create header
             const header = document.createElement('div');
             header.className = 'text-center mb-4';
-            header.innerHTML = `
-                <h3>The Climax Model Schools, Ota</h3>
-                <h4>Term Report Sheet</h4>
-                <p>${termVal.toUpperCase()} TERM ${sessionVal} | ${classVal.toUpperCase()}</p>
-                <p>CA: ${data.weights.ca}% (over 10) | Midterm: ${data.weights.midterm}% (over 20) | Exam: ${data.weights.exam}% (over 70)</p>
-                <hr>
-            `;
+            
+            if (termVal === 'summer') {
+                header.innerHTML = `
+                    <h3>The Climax Model Schools, Ota</h3>
+                    <h4>Summer Term Report Sheet</h4>
+                    <p>SUMMER TERM ${sessionVal} | ${classVal.toUpperCase()}</p>
+                    <p>Exam: 100%</p>
+                    <hr>
+                `;
+            } else {
+                header.innerHTML = `
+                    <h3>The Climax Model Schools, Ota</h3>
+                    <h4>Term Report Sheet</h4>
+                    <p>${termVal.toUpperCase()} TERM ${sessionVal} | ${classVal.toUpperCase()}</p>
+                    <p>CA: ${data.weights.ca}% | Midterm: ${data.weights.midterm}% | Exam: ${data.weights.exam}%</p>
+                    <hr>
+                `;
+            }
+            
             previewContent.appendChild(header);
             
             // Create table for each student
@@ -1235,18 +1402,29 @@ const firebaseConfig = {
                 
                 // Table header
                 const thead = document.createElement('thead');
-                thead.innerHTML = `
-                    <tr>
-                        <th>Subject</th>
-                        <th>CA Scores</th>
-                        <th>CA Total</th>
-                        <th>Midterm Scores</th>
-                        <th>Midterm Total</th>
-                        <th>Exam Score</th>
-                        <th>Subject Total</th>
-                        <th>Grade</th>
-                    </tr>
-                `;
+                
+                if (termVal === 'summer') {
+                    thead.innerHTML = `
+                        <tr>
+                            <th>Subject</th>
+                            <th>Exam Score</th>
+                            <th>Subject Total</th>
+                            <th>Grade</th>
+                        </tr>
+                    `;
+                } else {
+                    thead.innerHTML = `
+                        <tr>
+                            <th>Subject</th>
+                            <th>CA Avg</th>
+                            <th>Midterm Avg</th>
+                            <th>Exam Avg</th>
+                            <th>Subject Total</th>
+                            <th>Grade</th>
+                        </tr>
+                    `;
+                }
+                
                 table.appendChild(thead);
                 
                 // Table body
@@ -1255,35 +1433,48 @@ const firebaseConfig = {
                 Object.values(student.subjects).forEach(subject => {
                     const row = document.createElement('tr');
                     
-                    // Helper function to format scores array
-                    const formatScores = (scores) => {
-                        return scores.length > 0 ? scores.map(s => Math.round(s)).join(', ') : '-';
-                    };
-                    
                     // Calculate grade
                     const grade = calculateGrade(subject.subjectTotal);
                     
-                    row.innerHTML = `
-                        <td>${capitalizeFirstLetter(subject.name)}</td>
-                        <td>${formatScores(subject.caScores)}</td>
-                        <td>${subject.caScores.length > 0 ? Math.round(subject.caTotal * 10) / 10 : '0'}/10</td>
-                        <td>${formatScores(subject.midtermScores)}</td>
-                        <td>${subject.midtermScores.length > 0 ? Math.round(subject.midtermTotal * 10) / 10 : '0'}/20</td>
-                        <td>${subject.examScores.length > 0 ? Math.round(subject.examScores[0]) + '%' : '-'}</td>
-                        <td>${Math.round(subject.subjectTotal)}%</td>
-                        <td>${grade}</td>
-                    `;
+                    if (termVal === 'summer') {
+                        row.innerHTML = `
+                            <td>${capitalizeFirstLetter(subject.name)}</td>
+                            <td>${subject.examScores.length > 0 ? Math.round(subject.examAvg) + '%' : '-'}</td>
+                            <td>${Math.round(subject.subjectTotal)}%</td>
+                            <td>${grade}</td>
+                        `;
+                    } else {
+                        row.innerHTML = `
+                            <td>${capitalizeFirstLetter(subject.name)}</td>
+                            <td>${subject.caScores.length > 0 ? Math.round(subject.caAvg) + '%' : '-'}</td>
+                            <td>${subject.midtermScores.length > 0 ? Math.round(subject.midtermAvg) + '%' : '-'}</td>
+                            <td>${subject.examScores.length > 0 ? Math.round(subject.examAvg) + '%' : '-'}</td>
+                            <td>${Math.round(subject.subjectTotal)}%</td>
+                            <td>${grade}</td>
+                        `;
+                    }
+                    
                     tbody.appendChild(row);
                 });
                 
                 // Add overall average row
                 const footerRow = document.createElement('tr');
                 footerRow.className = 'table-active';
-                footerRow.innerHTML = `
-                    <td colspan="6" class="text-end"><strong>Overall Average:</strong></td>
-                    <td><strong>${Math.round(student.overallAverage)}%</strong></td>
-                    <td><strong>${calculateGrade(student.overallAverage)}</strong></td>
-                `;
+                
+                if (termVal === 'summer') {
+                    footerRow.innerHTML = `
+                        <td colspan="2" class="text-end"><strong>Overall Average:</strong></td>
+                        <td><strong>${Math.round(student.overallAverage)}%</strong></td>
+                        <td><strong>${calculateGrade(student.overallAverage)}</strong></td>
+                    `;
+                } else {
+                    footerRow.innerHTML = `
+                        <td colspan="4" class="text-end"><strong>Overall Average:</strong></td>
+                        <td><strong>${Math.round(student.overallAverage)}%</strong></td>
+                        <td><strong>${calculateGrade(student.overallAverage)}</strong></td>
+                    `;
+                }
+                
                 tbody.appendChild(footerRow);
                 
                 table.appendChild(tbody);
@@ -1301,6 +1492,7 @@ const firebaseConfig = {
             
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
+            const termVal = currentReportData.term;
             
             // Add header
             doc.setFontSize(16);
@@ -1308,12 +1500,23 @@ const firebaseConfig = {
             doc.text('The Climax Model Schools, Ota', 105, 15, { align: 'center' });
             
             doc.setFontSize(14);
-            doc.text('Term Report Sheet', 105, 22, { align: 'center' });
+            
+            if (termVal === 'summer') {
+                doc.text('Summer Term Report Sheet', 105, 22, { align: 'center' });
+            } else {
+                doc.text('Term Report Sheet', 105, 22, { align: 'center' });
+            }
             
             doc.setFontSize(12);
             doc.setTextColor(0, 0, 0); // Black color
-            doc.text(`${currentReportData.term.toUpperCase()} TERM ${currentReportData.session} | ${currentReportData.class.toUpperCase()}`, 105, 30, { align: 'center' });
-            doc.text(`CA: ${currentReportData.weights.ca}% | Midterm: ${currentReportData.weights.midterm}% | Exam: ${currentReportData.weights.exam}%`, 105, 37, { align: 'center' });
+            
+            if (termVal === 'summer') {
+                doc.text(`SUMMER TERM ${currentReportData.session} | ${currentReportData.class.toUpperCase()}`, 105, 30, { align: 'center' });
+                doc.text(`Exam: 100%`, 105, 37, { align: 'center' });
+            } else {
+                doc.text(`${currentReportData.term.toUpperCase()} TERM ${currentReportData.session} | ${currentReportData.class.toUpperCase()}`, 105, 30, { align: 'center' });
+                doc.text(`CA: ${currentReportData.weights.ca}% | Midterm: ${currentReportData.weights.midterm}% | Exam: ${currentReportData.weights.exam}%`, 105, 37, { align: 'center' });
+            }
             
             // Add student tables
             let yPosition = 45;
@@ -1331,43 +1534,65 @@ const firebaseConfig = {
                 const tableData = [];
                 
                 Object.values(student.subjects).forEach(subject => {
-                    // Helper function to format scores array
-                    const formatScores = (scores) => {
-                        return scores.length > 0 ? scores.map(s => Math.round(s)).join(', ') : '-';
-                    };
-                    
                     // Calculate grade
                     const grade = calculateGrade(subject.subjectTotal);
                     
-                    tableData.push([
-                        capitalizeFirstLetter(subject.name),
-                        formatScores(subject.caScores),
-                        `${subject.caScores.length > 0 ? Math.round(subject.caTotal * 10) / 10 : '0'}/10`,
-                        formatScores(subject.midtermScores),
-                        `${subject.midtermScores.length > 0 ? Math.round(subject.midtermTotal * 10) / 10 : '0'}/20`,
-                        subject.examScores.length > 0 ? `${Math.round(subject.examScores[0])}%` : '-',
-                        `${Math.round(subject.subjectTotal)}%`,
-                        grade
-                    ]);
+                    if (termVal === 'summer') {
+                        tableData.push([
+                            capitalizeFirstLetter(subject.name),
+                            subject.examScores.length > 0 ? `${Math.round(subject.examAvg)}%` : '-',
+                            `${Math.round(subject.subjectTotal)}%`,
+                            grade
+                        ]);
+                    } else {
+                        tableData.push([
+                            capitalizeFirstLetter(subject.name),
+                            subject.caScores.length > 0 ? `${Math.round(subject.caAvg)}%` : '-',
+                            subject.midtermScores.length > 0 ? `${Math.round(subject.midtermAvg)}%` : '-',
+                            subject.examScores.length > 0 ? `${Math.round(subject.examAvg)}%` : '-',
+                            `${Math.round(subject.subjectTotal)}%`,
+                            grade
+                        ]);
+                    }
                 });
                 
                 // Add overall average row
-                tableData.push([
-                    { content: 'Overall Average:', colSpan: 6, styles: { halign: 'right', fontStyle: 'bold' } },
-                    { content: `${Math.round(student.overallAverage)}%`, styles: { fontStyle: 'bold' } },
-                    { content: calculateGrade(student.overallAverage), styles: { fontStyle: 'bold' } }
-                ]);
+                if (termVal === 'summer') {
+                    tableData.push([
+                        { content: 'Overall Average:', colSpan: 2, styles: { halign: 'right', fontStyle: 'bold' } },
+                        { content: `${Math.round(student.overallAverage)}%`, styles: { fontStyle: 'bold' } },
+                        { content: calculateGrade(student.overallAverage), styles: { fontStyle: 'bold' } }
+                    ]);
+                } else {
+                    tableData.push([
+                        { content: 'Overall Average:', colSpan: 4, styles: { halign: 'right', fontStyle: 'bold' } },
+                        { content: `${Math.round(student.overallAverage)}%`, styles: { fontStyle: 'bold' } },
+                        { content: calculateGrade(student.overallAverage), styles: { fontStyle: 'bold' } }
+                    ]);
+                }
                 
                 // Add table to PDF
-                doc.autoTable({
-                    startY: yPosition,
-                    head: [['Subject', 'CA Scores', 'CA Total', 'Midterm Scores', 'Midterm Total', 'Exam Score', 'Total', 'Grade']],
-                    body: tableData,
-                    margin: { left: 10, right: 10 },
-                    styles: { fontSize: 9 },
-                    headStyles: { fillColor: [26, 95, 180], textColor: 255, fontStyle: 'bold' },
-                    alternateRowStyles: { fillColor: [240, 240, 240] }
-                });
+                if (termVal === 'summer') {
+                    doc.autoTable({
+                        startY: yPosition,
+                        head: [['Subject', 'Exam Score', 'Total', 'Grade']],
+                        body: tableData,
+                        margin: { left: 10, right: 10 },
+                        styles: { fontSize: 9 },
+                        headStyles: { fillColor: [26, 95, 180], textColor: 255, fontStyle: 'bold' },
+                        alternateRowStyles: { fillColor: [240, 240, 240] }
+                    });
+                } else {
+                    doc.autoTable({
+                        startY: yPosition,
+                        head: [['Subject', 'CA Avg', 'Midterm Avg', 'Exam Avg', 'Total', 'Grade']],
+                        body: tableData,
+                        margin: { left: 10, right: 10 },
+                        styles: { fontSize: 9 },
+                        headStyles: { fillColor: [26, 95, 180], textColor: 255, fontStyle: 'bold' },
+                        alternateRowStyles: { fillColor: [240, 240, 240] }
+                    });
+                }
                 
                 yPosition = doc.lastAutoTable.finalY + 10;
                 
@@ -1417,8 +1642,8 @@ const firebaseConfig = {
                     };
                 }
                 
-                if (result.objectiveScore) {
-                    performanceData[result.class][result.subject].total += result.objectiveScore;
+                if (result.totalScore) {
+                    performanceData[result.class][result.subject].total += result.totalScore;
                     performanceData[result.class][result.subject].count++;
                 }
             });
@@ -1487,12 +1712,12 @@ const firebaseConfig = {
             };
             
             filteredResults.forEach(result => {
-                if (result.objectiveScore) {
-                    if (result.objectiveScore >= 90) scoreRanges['90-100']++;
-                    else if (result.objectiveScore >= 80) scoreRanges['80-89']++;
-                    else if (result.objectiveScore >= 70) scoreRanges['70-79']++;
-                    else if (result.objectiveScore >= 60) scoreRanges['60-69']++;
-                    else if (result.objectiveScore >= 50) scoreRanges['50-59']++;
+                if (result.totalScore) {
+                    if (result.totalScore >= 90) scoreRanges['90-100']++;
+                    else if (result.totalScore >= 80) scoreRanges['80-89']++;
+                    else if (result.totalScore >= 70) scoreRanges['70-79']++;
+                    else if (result.totalScore >= 60) scoreRanges['60-69']++;
+                    else if (result.totalScore >= 50) scoreRanges['50-59']++;
                     else scoreRanges['Below 50']++;
                 }
             });
@@ -1554,8 +1779,8 @@ const firebaseConfig = {
             
             filteredResults.forEach(result => {
                 const resultDate = new Date(result.timestamp).toISOString().split('T')[0];
-                if (dailyAverages[resultDate] && result.objectiveScore) {
-                    dailyAverages[resultDate].total += result.objectiveScore;
+                if (dailyAverages[resultDate] && result.totalScore) {
+                    dailyAverages[resultDate].total += result.totalScore;
                     dailyAverages[resultDate].count++;
                 }
             });
@@ -1574,199 +1799,198 @@ const firebaseConfig = {
                     datasets: [{
                         label: 'Daily Average Score (%)',
                         data: data,
-                        borderColor: 'rgba(26, 95, 180, 1)',
-                        backgroundColor: 'rgba(26, 95, 180, 0.1)',
-                        tension: 0.3,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            title: {
-                                display: true,
-                                text: 'Average Score (%)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Performance Trends (Last 30 Days)'
-                        }
+                                        backgroundColor: 'rgba(26, 95, 180, 0.1)',
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Average Score (%)'
                     }
                 }
-            });
-        }
-
-        // ==================== UTILITY FUNCTIONS ====================
-
-        // Export to Excel
-        function exportToExcel() {
-            if (filteredResults.length === 0) {
-                alert('No results to export');
-                return;
-            }
-            
-            // Prepare data for export
-            const exportData = filteredResults.map(result => {
-                return {
-                    'Student Name': result.name || '',
-                    'Class': result.class ? result.class.toUpperCase() : '',
-                    'Subject': result.subject ? capitalizeFirstLetter(result.subject) : '',
-                    'Exam Type': getExamTypeText(result.examType),
-                    'Term': result.term || '',
-                    'Session': result.session || '',
-                    'Objective Score (%)': result.objectiveScore || '',
-                    'Theory Score (%)': result.theoryScore || '',
-                    'Theory Submitted': result.theorySubmitted ? 'Yes' : 'No',
-                    'Theory Graded': result.theoryGraded ? 'Yes' : 'No',
-                    'Date Submitted': formatDate(result.timestamp)
-                };
-            });
-            
-            // Create worksheet
-            const ws = XLSX.utils.json_to_sheet(exportData);
-            
-            // Create workbook
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Exam Results');
-            
-            // Export to file
-            const dateStr = new Date().toISOString().split('T')[0];
-            XLSX.writeFile(wb, `Exam_Results_${dateStr}.xlsx`);
-        }
-
-        // Print result details
-        function printResultDetails() {
-            const printContent = document.getElementById('resultDetails').innerHTML;
-            const originalContent = document.body.innerHTML;
-            
-            document.body.innerHTML = `
-                <div style="padding: 20px; max-width: 800px; margin: 0 auto;">
-                    <div style="text-align: center; margin-bottom: 20px;">
-                        <h2>The Climax Model Schools, Ota</h2>
-                        <h3>Exam Result Details</h3>
-                    </div>
-                    ${printContent}
-                    <div style="margin-top: 30px; text-align: right; font-style: italic;">
-                        Printed on ${new Date().toLocaleDateString()}
-                    </div>
-                </div>
-            `;
-            
-            window.print();
-            document.body.innerHTML = originalContent;
-        }
-
-        // Show alert message
-        function showAlert(type, message) {
-            const alertDiv = document.createElement('div');
-            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-            alertDiv.role = 'alert';
-            alertDiv.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            `;
-            
-            const container = document.querySelector('.container-fluid');
-            container.prepend(alertDiv);
-            
-            setTimeout(() => {
-                alertDiv.classList.remove('show');
-                setTimeout(() => alertDiv.remove(), 150);
-            }, 3000);
-        }
-
-        // Helper function to format datetime for input
-        function formatDateTimeForInput(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return '';
-            
-            const pad = num => num.toString().padStart(2, '0');
-            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-        }
-
-        // Helper function to get exam type display
-        function getExamTypeDisplay(type) {
-            switch(type) {
-                case 'ca': return '<span class="badge bg-primary">CA</span>';
-                case 'midterm': return '<span class="badge bg-warning text-dark">Midterm</span>';
-                case 'exam': return '<span class="badge bg-danger">Exam</span>';
-                default: return 'N/A';
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Performance Trends (Last 30 Days)'
+                }
             }
         }
+    });
+}
 
-        // Helper function to get exam type text
-        function getExamTypeText(type) {
-            switch(type) {
-                case 'ca': return 'Continuous Assessment';
-                case 'midterm': return 'Midterm Exam';
-                case 'exam': return 'End of Term Exam';
-                default: return type || 'N/A';
-            }
-        }
+// ==================== UTILITY FUNCTIONS ====================
 
-        // Helper function to format date
-        function formatDate(dateString) {
-            if (!dateString) return 'N/A';
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return 'N/A';
-            
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-        }
+// Export to Excel
+function exportToExcel() {
+    if (filteredResults.length === 0) {
+        alert('No results to export');
+        return;
+    }
+    
+    // Prepare data for export
+    const exportData = filteredResults.map(result => {
+        return {
+            'Student Name': result.name || '',
+            'Class': result.class ? result.class.toUpperCase() : '',
+            'Subject': result.subject ? capitalizeFirstLetter(result.subject) : '',
+            'Exam Type': getExamTypeText(result.examType),
+            'Term': result.term || '',
+            'Session': result.session || '',
+            'Objective Score (%)': result.objectiveScore || '',
+            'Theory Score (%)': result.theoryScore || '',
+            'Total Score (%)': result.totalScore || '',
+            'Theory Submitted': result.theorySubmitted ? 'Yes' : 'No',
+            'Theory Graded': result.theoryGraded ? 'Yes' : 'No',
+            'Date Submitted': formatDate(result.timestamp)
+        };
+    });
+    
+    // Create worksheet
+    const ws = XLSX.utils.json_to_sheet(exportData);
+    
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Exam Results');
+    
+    // Export to file
+    const dateStr = new Date().toISOString().split('T')[0];
+    XLSX.writeFile(wb, `Exam_Results_${dateStr}.xlsx`);
+}
 
-        // Helper function to format short date
-        function formatShortDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric'
-            });
-        }
+// Print result details
+function printResultDetails() {
+    const printContent = document.getElementById('resultDetails').innerHTML;
+    const originalContent = document.body.innerHTML;
+    
+    document.body.innerHTML = `
+        <div style="padding: 20px; max-width: 800px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h2>The Climax Model Schools, Ota</h2>
+                <h3>Exam Result Details</h3>
+            </div>
+            ${printContent}
+            <div style="margin-top: 30px; text-align: right; font-style: italic;">
+                Printed on ${new Date().toLocaleDateString()}
+            </div>
+        </div>
+    `;
+    
+    window.print();
+    document.body.innerHTML = originalContent;
+}
 
-        // Helper function to capitalize first letter
-        function capitalizeFirstLetter(string) {
-            if (!string) return '';
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
+// Show alert message
+function showAlert(type, message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.role = 'alert';
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+    
+    const container = document.querySelector('.container-fluid');
+    container.prepend(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.classList.remove('show');
+        setTimeout(() => alertDiv.remove(), 150);
+    }, 3000);
+}
 
-        // Helper function to get score class
-        function getScoreClass(score) {
-            if (score === undefined || score === null) return '';
-            if (score >= 70) return 'high-score';
-            if (score >= 50) return 'medium-score';
-            return 'low-score';
-        }
+// Helper function to format datetime for input
+function formatDateTimeForInput(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return '';
+    
+    const pad = num => num.toString().padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
 
-        // Helper function to get random color
-        function getRandomColor() {
-            return `hsl(${Math.floor(Math.random() * 360)}, 70%, 60%)`;
-        }
+// Helper function to get exam type display
+function getExamTypeDisplay(type) {
+    switch(type) {
+        case 'ca': return '<span class="badge bg-primary">CA</span>';
+        case 'midterm': return '<span class="badge bg-warning text-dark">Midterm</span>';
+        case 'exam': return '<span class="badge bg-danger">Exam</span>';
+        default: return 'N/A';
+    }
+}
 
-        // Helper function to calculate grade
-        function calculateGrade(score) {
-            if (score >= 75) return 'A1';
-            if (score >= 70) return 'B2';
-            if (score >= 65) return 'B3';
-            if (score >= 60) return 'C4';
-            if (score >= 55) return 'C5';
-            if (score >= 50) return 'C6';
-            if (score >= 45) return 'D7';
-            if (score >= 40) return 'E8';
-            return 'F9';
-        }
-    </script>
+// Helper function to get exam type text
+function getExamTypeText(type) {
+    switch(type) {
+        case 'ca': return 'Continuous Assessment';
+        case 'midterm': return 'Midterm Exam';
+        case 'exam': return 'End of Term Exam';
+        default: return type || 'N/A';
+    }
+}
+
+// Helper function to format date
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return 'N/A';
+    
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Helper function to format short date
+function formatShortDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
+// Helper function to capitalize first letter
+function capitalizeFirstLetter(string) {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Helper function to get score class
+function getScoreClass(score) {
+    if (score === undefined || score === null) return '';
+    if (score >= 70) return 'high-score';
+    if (score >= 50) return 'medium-score';
+    return 'low-score';
+}
+
+// Helper function to get random color
+function getRandomColor() {
+    return `hsl(${Math.floor(Math.random() * 360)}, 70%, 60%)`;
+}
+
+// Helper function to calculate grade
+function calculateGrade(score) {
+    if (score >= 75) return 'A1';
+    if (score >= 70) return 'B2';
+    if (score >= 65) return 'B3';
+    if (score >= 60) return 'C4';
+    if (score >= 55) return 'C5';
+    if (score >= 50) return 'C6';
+    if (score >= 45) return 'D7';
+    if (score >= 40) return 'E8';
+    return 'F9';
+}
+</script>
 </body>
-</html>
-
+</html> 
